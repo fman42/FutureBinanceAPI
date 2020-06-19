@@ -24,7 +24,7 @@ DefaultClient = new DefaultClient(); // Create the client for a non-auth request
 You can change **recvWindow** for a client
 ```
 ...
-authClient.recvWindow = 5000;
+authClient.RecvWindow = 5000;
 ```
 
 ## 1. EndPoints
