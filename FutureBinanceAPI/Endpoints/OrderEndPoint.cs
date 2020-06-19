@@ -24,6 +24,7 @@ namespace FutureBinanceAPI.Endpoints
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/order",
                 order.ToKeyValuePair());
+            System.Console.WriteLine(message.Content.ReadAsStringAsync().Result);
             return await Client.SendRequest<Order>(message);
         }
 
@@ -54,7 +55,7 @@ namespace FutureBinanceAPI.Endpoints
             });
 
             ResponseStatus response = await Client.SendRequest<ResponseStatus>(message);
-            return response != null ? response.Code == 200 && response.Msg == "success" : false;
+            return response.Code == 200;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace FutureBinanceAPI.Models.Orders
     {
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePair()
         {
-            return this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            return this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(x => x.GetValue(this) != null)
                 .ToDictionary(x => ConvertKey(x.Name), 
                               x => ConvertToString(x.GetValue(this)));
         }
@@ -18,7 +18,8 @@ namespace FutureBinanceAPI.Models.Orders
 
         private string ConvertToString(object value)
         {
-            return value is decimal ? ((decimal) value).ToString(new CultureInfo("en-US")) : value.ToString();
+            if (value is bool) return value.ToString().ToLower();
+            else return value is decimal ? ((decimal)value).ToString(new CultureInfo("en-US")) : value.ToString();
         }
     }
 }
