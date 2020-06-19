@@ -2,7 +2,7 @@
 
 namespace FutureBinanceAPI.Models.Orders
 {
-    class StopMarket
+    public class StopMarket : Order, IOrder
     {
         public SymbolsEnum.Symbols Symbol { get; set; }
         public SideEnum.SideTypes Side { get; set; }
@@ -12,11 +12,12 @@ namespace FutureBinanceAPI.Models.Orders
         public decimal Quantity { get; set; }
         public decimal StopPrice { get; set; }
         public bool ReduceOnly { get; set; }
-        public StopMarket(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal stopPrice)
+        public StopMarket(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity, decimal stopPrice)
         {
             Symbol = symbol;
             Side = side;
             StopPrice = stopPrice;
+            Quantity = quantity;
         }
     }
 }
