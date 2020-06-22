@@ -1,6 +1,6 @@
 ﻿namespace FutureBinanceAPI.API
 {
-    public class AuthClient : Client
+    public class AuthClient : Client, IClient
     {
         public string APIKey { get; private set; }
         public string SecretKey { get; private set; }

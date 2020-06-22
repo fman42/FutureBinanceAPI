@@ -16,29 +16,29 @@ namespace FutureBinanceAPI.Endpoints
         public TickerEndPoint(Client client)
         {
             Client = client;
-            HttpBuilder = new DefaultBuilder(Client.DebugMode);
+            HttpBuilder = new DefaultBuilder(Client);
         }
 
-        public async Task<IEnumerable<PriceTicker>> GetPriceTicker() =>
-            await Client.SendRequest<IEnumerable<PriceTicker>>(HttpBuilder.MakeRequest(APIEndPoint + "/price"));
+        public async Task<IEnumerable<PriceTicker>> GetPriceTickerAsync() =>
+            await Client.SendRequestAsync<IEnumerable<PriceTicker>>(HttpBuilder.MakeRequest(APIEndPoint + "/price"));
 
-        public async Task<PriceTicker> GetPriceTicker(SymbolsEnum.Symbols symbol)
+        public async Task<PriceTicker> GetPriceTickerAsync(Symbols symbol)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(APIEndPoint + "/price", new[] {
                 new KeyValuePair<string,string>("symbol", symbol.ToString()) });
 
-            return await Client.SendRequest<PriceTicker>(message);
+            return await Client.SendRequestAsync<PriceTicker>(message);
         }
 
-        public async Task<IEnumerable<BookTicker>> GetBookTicker() =>
-            await Client.SendRequest<IEnumerable<BookTicker>>(HttpBuilder.MakeRequest(APIEndPoint + "/bookTicker"));
+        public async Task<IEnumerable<BookTicker>> GetBookTickerAsync() =>
+            await Client.SendRequestAsync<IEnumerable<BookTicker>>(HttpBuilder.MakeRequest(APIEndPoint + "/bookTicker"));
 
-        public async Task<BookTicker> GetBookTicker(SymbolsEnum.Symbols symbol)
+        public async Task<BookTicker> GetBookTickerAsync(Symbols symbol)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(APIEndPoint + "/bookTicker", new[] {
                 new KeyValuePair<string,string>("symbol", symbol.ToString()) });
 
-            return await Client.SendRequest<BookTicker>(message);
+            return await Client.SendRequestAsync<BookTicker>(message);
         }
     }
 }

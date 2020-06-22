@@ -9,8 +9,8 @@ namespace FutureBinanceAPI.Models
         public decimal OrigQty { get; set; }
         public decimal Price { get; set; }
         public decimal StopPrice { get; set; }
-        public SideEnum.SideTypes Side { get; set; }
-        public SymbolsEnum.Symbols Symbol { get; set; }
-        public TypesOrderEnum.Types Type { get; set; }
+        public SideTypes Side { get; set; }
+        public Symbols Symbol { get; set; }
+        public Types Type { get; set; }
     }
 }

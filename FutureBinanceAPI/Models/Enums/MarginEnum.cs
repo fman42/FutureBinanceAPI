@@ -1,11 +1,8 @@
 ﻿namespace FutureBinanceAPI.Models.Enums
 {
-    public class MarginEnum
+    public enum MarginTypes
     {
-        public enum MarginTypes
-        {
-            ISOLATED,
-            CROSSED
-        }
+        ISOLATED,
+        CROSSED
     }
 }

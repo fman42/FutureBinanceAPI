@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FutureBinanceAPI.Tools.Cipher
 {
-    class RequestCrypter
+    internal static class RequestCrypter
     {
         public static string CreateHMAC(string secretKey, FormUrlEncodedContent args)
         {

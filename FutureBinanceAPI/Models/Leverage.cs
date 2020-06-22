@@ -8,6 +8,6 @@ namespace FutureBinanceAPI.Models
         public decimal MaxNotionalValue { get; set; }
         [JsonProperty("leverage")]
         public decimal LeverageValue { get; set; }
-        public SymbolsEnum.Symbols Symbol { get; set; }
+        public Symbols Symbol { get; set; }
     }
 }

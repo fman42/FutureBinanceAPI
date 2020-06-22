@@ -1,13 +1,10 @@
 ﻿namespace FutureBinanceAPI.Models.Enums
 {
-    public class TimeInForceEnum
+    public enum TineInForceTypes
     {
-        public enum TineInForceTypes
-        {
-            GTC,
-            IOC,
-            FOK,
-            GTX
-        }
+        GTC,
+        IOC,
+        FOK,
+        GTX
     }
 }

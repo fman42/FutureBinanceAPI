@@ -17,44 +17,43 @@ namespace FutureBinanceAPI.Endpoints
         public OrderEndPoint(AuthClient client)
         {
             Client = client;
-            HttpBuilder = new AuthBuilder(Client, Client.DebugMode);
+            HttpBuilder = new AuthBuilder(Client);
         }
 
-        public async Task<Order> Set(Orders.IOrder order)
+        public async Task<Order> SetAsync(Orders.IOrder order)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/order",
                 order.ToKeyValuePair());
-            System.Console.WriteLine(message.Content.ReadAsStringAsync().Result);
-            return await Client.SendRequest<Order>(message);
+            return await Client.SendRequestAsync<Order>(message);
         }
 
-        public async Task<Order> Get(SymbolsEnum.Symbols symbol, long orderId)
+        public async Task<Order> GetAsync(Symbols symbol, long orderId)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Get, $"{APIEndPoint}/order", new[] {
                 new KeyValuePair<string,string>("symbol", symbol.ToString()),
                 new KeyValuePair<string,string>("orderId", orderId.ToString()),
             });
 
-            return await Client.SendRequest<Order>(message);
+            return await Client.SendRequestAsync<Order>(message);
         }
 
-        public async Task<Order> Cancel(SymbolsEnum.Symbols symbol, long orderId)
+        public async Task<Order> CancelAsync(Symbols symbol, long orderId)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Delete, $"{APIEndPoint}/order", new[] {
                 new KeyValuePair<string,string>("symbol", symbol.ToString()),
                 new KeyValuePair<string,string>("orderId", orderId.ToString()),
             });
 
-            return await Client.SendRequest<Order>(message);
+            return await Client.SendRequestAsync<Order>(message);
         }
 
-        public async Task<bool> Cancel(SymbolsEnum.Symbols symbol)
+        public async Task<bool> CancelAsync(Symbols symbol)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Delete, $"{APIEndPoint}/allOpenOrders", new[] {
                 new KeyValuePair<string,string>("symbol", symbol.ToString())
             });
 
-            ResponseStatus response = await Client.SendRequest<ResponseStatus>(message);
+            ResponseStatus response = await Client.SendRequestAsync<ResponseStatus>(message);
             return response.Code == 200;
         }
     }

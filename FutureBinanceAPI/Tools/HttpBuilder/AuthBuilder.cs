@@ -10,7 +10,7 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
     class AuthBuilder : Builder, IHttpBuilder
     {
         private AuthClient Client { get; }
-        public AuthBuilder(AuthClient client, bool debug) : base(debug)
+        public AuthBuilder(AuthClient client) : base(client.DebugMode)
         {
             Client = client;
         }

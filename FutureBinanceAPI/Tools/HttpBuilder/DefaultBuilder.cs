@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using FutureBinanceAPI.API;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace FutureBinanceAPI.Tools.HttpBuilder
 {
     class DefaultBuilder : Builder, IHttpBuilder
     {
-        public DefaultBuilder(bool debug) : base(debug) { }
+        public DefaultBuilder(Client client) : base(client.DebugMode) { }
 
         public HttpRequestMessage MakeRequest(string url, IEnumerable<KeyValuePair<string, string>> args = null)
         {

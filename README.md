@@ -21,7 +21,7 @@ AuthClient authClient = new AuthClient("my_api_key", "my_secret_key", true); // 
 DefaultClient = new DefaultClient(); // Create the client for a non-auth request
 ```
 
-You can change **recvWindow** for a client
+You can change **RecvWindow** for a client
 ```csharp
 ...
 authClient.RecvWindow = 5000;
@@ -39,7 +39,7 @@ Using a client object you can use anymore endpoint. A list of endpoints:
 ### 1.1. TickerEndPoint
 ```csharp
 DefaultClient client = new DefaultClient(true); // Create a default client
-MarketEndPoint market = new MarketEndPoint(client); // Create a market endpoint
+TickerEndPoint market = new TickerEndPoint(client); // Create a market endpoint
 ```
 
 The endpoint has methods:
@@ -49,29 +49,29 @@ The endpoint has methods:
 Fetch latest price for a symbol or symbols.
 
 ```csharp
-public async Task<IEnumerable<PriceTicker>> GetPriceTicker()
-public async Task<PriceTicker> GetPriceTicker(SymbolsEnum.Symbols symbol)
+public async Task<IEnumerable<PriceTicker>> GetPriceTickerAsync()
+public async Task<PriceTicker> GetPriceTickerAsync(Symbols symbol)
 ```
 Example:
 ```csharp
 ...
-IEnumerable<PriceTicker> priceSymbols = await market.GetPriceTicker();
-PriceTicker priceSymbol = await market.GetPriceTicker(SymbolsEnum.Symbols.BTCUSDT);
+IEnumerable<PriceTicker> priceSymbols = await market.GetPriceTickerAsync();
+PriceTicker priceSymbol = await market.GetPriceTickerAsync(Symbols.BTCUSDT);
 ```
 
 **GetBookTicker**
 
 Fetch best price/qty on the order book for a symbol or symbols.
 ```csharp
-public async Task<IEnumerable<BookTicker>> GetBookTicker()
-public async Task<BookTicker> GetBookTicker(SymbolsEnum.Symbols symbol)
+public async Task<IEnumerable<BookTicker>> GetBookTickerAsync()
+public async Task<BookTicker> GetBookTickerAsync(Symbols symbol)
 ```
 
 Example:
 ```csharp
 ...
-IEnumerable<BookTicker> bestPriceForSymbols = await market.GetBookTicker();
-BookTicker bestPrice = await market.GetBookTicker(SymbolsEnum.Symbols.BTCUSDT);
+IEnumerable<BookTicker> bestPriceForSymbols = await market.GetBookTickerAsync();
+BookTicker bestPrice = await market.GetBookTickerAsync(Symbols.BTCUSDT);
 ```
 
 ### 1.2. TradeEndPoint
@@ -88,26 +88,26 @@ The endpoint has methods:
 
 Will set a leverage for a given symbol
 ```csharp
-public async Task<Leverage> SetLeverage(SymbolsEnum.Symbols symbol, int value)
+public async Task<Leverage> SetLeverageAsync(Symbols symbol, int value)
 ```
 
 Example:
 ```csharp
 ...
-Leverage setLeverage = await trade.SetLeverage(SymbolsEnum.BTCUSDT, 25); // Set 25 leverage for BTCUSDT
+Leverage setLeverage = await trade.SetLeverageAsync(Symbols.BTCUSDT, 25); // Set 25 leverage for BTCUSDT
 ```
 
 **SetMarginType**
 
 Will set a margin type(**CROSSED** or **ISOLATED**) for a given symbol
 ```csharp
-public async Task<bool> SetMarginType(SymbolsEnum.Symbols symbol, MarginEnum.MarginTypes marginType)
+public async Task<bool> SetMarginTypeAsync(Symbols symbol, MarginTypes marginType)
 ```
 
 Example:
 ```csharp
 ...
-bool changedMarginType = trade.SetMarginType(SymbolsEnum.BTCUSDT, MarginEnum.MarginTypes.CROSSED); // Set a margin type CROSSED
+bool changedMarginType = trade.SetMarginTypeAsync(Symbols.BTCUSDT, MarginTypes.CROSSED); // Set a margin type CROSSED
 ```
 
 ### 1.3. OrderEndPoint
@@ -123,14 +123,14 @@ OrderEndPoint order = new OrderEndPoint(client); // Create an order endpoint
 Will send a new order to exchange. To create an order in code, you need create an object from **FutureBinanceAPI.Models.Orders** namespace. **_Each an order has own class_** (See **1.3.1**)
 
 ```csharp
-public async Task<Order> Set(Orders.IOrder order)
+public async Task<Order> SetAsync(Orders.IOrder order)
 ```
 
 Example:
 ```csharp
 ...
-MarketOrder marketOrder = new MarketOrder(SymbolsEnum.BTCUSDT, 0.100m); // Create a market order
-Order newOrder = await order.Set(marketOrder); // Send our market order to an exchange
+MarketOrder marketOrder = new MarketOrder(Symbols.BTCUSDT, 0.100m); // Create a market order
+Order newOrder = await order.SetAsync(marketOrder); // Send our market order to an exchange
 
 Console.WriteLine(newOrder.OrderId); // We received response from exchange and will write in a console
 ```
@@ -138,65 +138,65 @@ Console.WriteLine(newOrder.OrderId); // We received response from exchange and w
 #### 1.3.1. Types of orders:
 **-MarketOrder**
 ```csharp
-public MarketOrder(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity)
+public MarketOrder(Symbols symbol, SideTypes side, decimal quantity)
 ```
 
 **-LimitOrder**
 ```csharp
-public LimitOrder(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity, decimal price, TimeInForceEnum.TineInForceTypes timeInForce)
+public LimitOrder(Symbols symbol, SideTypes side, decimal quantity, decimal price, TimeInForceEnum.TineInForceTypes timeInForce)
 ```
 
 **-StopOrder**
 ```csharp
-public StopOrder(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity, decimal price, decimal stopPrice)
+public StopOrder(Symbols symbol, SideTypes side, decimal quantity, decimal price, decimal stopPrice)
 ```
 
 **-TakeProfit**
 ```csharp
-public TakeProfit(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity, decimal price, decimal stopPrice)
+public TakeProfit(Symbols symbol, SideTypes side, decimal quantity, decimal price, decimal stopPrice)
 ```
 
 **-StopMarket**
 ```csharp
-public StopMarket(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity, decimal stopPrice)
+public StopMarket(Symbols symbol, SideTypes side, decimal quantity, decimal stopPrice)
 ```
 
 **-TakeProfitMarket**
 ```csharp
-public TakeProfitMarket(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity, decimal stopPrice)
+public TakeProfitMarket(Symbols symbol, SideTypes side, decimal quantity, decimal stopPrice)
 ```
 
 **-TrailingStopMarket**
 ```csharp
-public TrailingStopMarket(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity, decimal callbackRate)
+public TrailingStopMarket(SymbolsEnum.Symbols symbol, SideTypes side, decimal quantity, decimal callbackRate)
 ```
 
 **Get**
 
 Fetch info of order from an exchange
 ```csharp
-public async Task<Order> Get(SymbolsEnum.Symbols symbol, long orderId)
+public async Task<Order> GetAsync(Symbols symbol, long orderId)
 ```
 
 Example:
 ```csharp
 ...
-Order order = await order.Get(SymbolsEnum.Symbols.BTCUSDT, 10000045);
+Order order = await order.GetAsync(Symbols.BTCUSDT, 10000045);
 ```
 
 **Cancel**
 
 Will cancel a given order or all
 ```csharp
-public async Task<Order> Cancel(SymbolsEnum.Symbols symbol, long orderId)
-public async Task<bool> Cancel(SymbolsEnum.Symbols symbol)
+public async Task<Order> CancelAsync(Symbols symbol, long orderId)
+public async Task<bool> CancelAsync(Symbols symbol)
 ```
 
 Example:
 ```csharp
 ...
-Order canceledOrder = await order.Cancel(SymbolsEnum.Symbols.BTCUSDT, 10000045);
-bool AreCanceledAllOrders = await order.Cancel(SymbolsEnum.Symbols.BTCUSDT);
+Order canceledOrder = await order.CancelAsync(Symbols.BTCUSDT, 10000045);
+bool AreCanceledAllOrders = await order.CancelAsync(Symbols.BTCUSDT);
 ``` 
 
 ### 1.4. AccountEndPoint
@@ -209,12 +209,12 @@ AccountEndPoint account = new AccountEndPoint(client); // Create an account endp
 
 **Get**
 ```csharp
-public async Task<Account> Get()
+public async Task<Account> GetAsync()
 ```
 
 ```csharp
 ...
-Account account = await account.Get();
+Account account = await account.GetAsync();
 ```
 
 ## 2. Exception
@@ -224,7 +224,7 @@ In case of an error when requesting the exchange, an exception will be thrown **
 ```csharp
 try {
     ...
-    Order newOrder = await order.Set(marketOrder);
+    Order newOrder = await order.SetAsync(marketOrder);
 } catch (FutureBinanceAPI.Exceptions.APIException e)
 {
     Console.WriteLine(e.Details.Msg);
@@ -240,7 +240,7 @@ If a library doesn't have any methods, you can simple build your custom requests
 
 ```csharp
 public Request(Client client)
-public Task<string> Send(IEnumerable<KeyValuePair<string, string>> args, HttpMethod method, string endpoint)
+public Task<string> SendAsync(IEnumerable<KeyValuePair<string, string>> args, HttpMethod method, string endpoint)
 ```
 
 ```csharp
@@ -248,7 +248,7 @@ AuthClient authClient = new AuthClient("API_key", "Secret_key", true); // Create
 AuthClient defaultClient = new AuthClient(true); // Create a default client
 
 UserRequest.Request customRequest = new UserRequest.Request(authClient);
-string response = await customRequest.Send(null, HttpMethod.Get, "/fapi/v1/positionSide/dual");
+string response = await customRequest.SendAsync(null, HttpMethod.Get, "/fapi/v1/positionSide/dual");
 
 Console.WriteLine(response); // Output in JSON
 ```

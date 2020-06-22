@@ -13,14 +13,14 @@ namespace FutureBinanceAPI.Tools.UserRequest
         public Request(Client client)
         {
             Client = client;
-            Builder = client is AuthClient ? (IHttpBuilder) new AuthBuilder((AuthClient)Client, Client.DebugMode) 
-                : (IHttpBuilder) new DefaultClient(Client.DebugMode);
+            Builder = client is AuthClient ? (IHttpBuilder)new AuthBuilder((AuthClient)Client)
+                : (IHttpBuilder)new DefaultBuilder(Client);
         }
 
-        public Task<string> Send(IEnumerable<KeyValuePair<string, string>> args, HttpMethod method, string endpoint)
+        public Task<string> SendAsync(IEnumerable<KeyValuePair<string, string>> args, HttpMethod method, string endpoint)
         {
             HttpRequestMessage message = Builder.MakeRequest(method, endpoint, args);
-            return Client.SendRequest(message);
+            return Client.SendRequestAsync(message);
         }
     }
 }

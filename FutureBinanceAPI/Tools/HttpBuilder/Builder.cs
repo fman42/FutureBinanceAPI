@@ -30,6 +30,6 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
             return "?" + string.Join("&", queryStrings);
         }
 
-        protected long GetTimeStamp() => (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
+        protected long GetTimeStamp() => (long)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalMilliseconds;
     }
 }

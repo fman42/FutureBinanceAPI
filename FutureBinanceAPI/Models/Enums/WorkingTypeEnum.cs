@@ -1,11 +1,8 @@
 ﻿namespace FutureBinanceAPI.Models.Enums
 {
-    public class WorkingTypeEnum
+    public enum WorkingType
     {
-        public enum WorkingType
-        {
-            MARK_PRICE,
-            CONTRACT_PRICE
-        }
+        MARK_PRICE,
+        CONTRACT_PRICE
     }
 }

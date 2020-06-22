@@ -5,13 +5,13 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class MarketOrder : Order, IOrder
     {
-        public SymbolsEnum.Symbols Symbol { get; set; }
-        public SideEnum.SideTypes Side { get; set; }
-        public TypesOrderEnum.Types Type { get; } = TypesOrderEnum.Types.MARKET;
-        public WorkingTypeEnum.WorkingType WorkingType { get; set; } = WorkingTypeEnum.WorkingType.CONTRACT_PRICE;
+        public Symbols Symbol { get; set; }
+        public SideTypes Side { get; set; }
+        public Types Type { get; } = Types.MARKET;
+        public WorkingType WorkingType { get; set; } = WorkingType.CONTRACT_PRICE;
         public decimal Quantity { get; set; }
         public bool ReduceOnly { get; set; } = false;
-        public MarketOrder(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity)
+        public MarketOrder(Symbols symbol, SideTypes side, decimal quantity)
         {
             Symbol = symbol;
             Side = side;

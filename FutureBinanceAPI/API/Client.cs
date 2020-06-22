@@ -8,25 +8,30 @@ namespace FutureBinanceAPI.API
     public class Client
     {
         public bool DebugMode { get; private set; }
-        private HttpClient WebClient { get; set; } = new HttpClient(new HttpClientHandler() { UseProxy = false });
+        private static readonly HttpClient HttpClient = new HttpClient(new HttpClientHandler() { UseProxy = false });
         public Client(bool debug)
         {
             DebugMode = debug;
         }
 
-        public async Task<T> SendRequest<T>(HttpRequestMessage message)
+        public async Task<T> SendRequestAsync<T>(HttpRequestMessage message)
         {
-            HttpResponseMessage response = await WebClient.SendAsync(message);
+            HttpResponseMessage response = await HttpClient.SendAsync(message);
+            string receivedString = await response.Content.ReadAsStringAsync();
+
             if (response.IsSuccessStatusCode)
-                return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
-            else throw new APIException(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<T>(receivedString);
+            else throw new APIException(receivedString);
         }
 
-        public async Task<string> SendRequest(HttpRequestMessage message)
+        public async Task<string> SendRequestAsync(HttpRequestMessage message)
         {
-            HttpResponseMessage response = await WebClient.SendAsync(message);
-            if (response.IsSuccessStatusCode) return await response.Content.ReadAsStringAsync();
-            else throw new APIException(await response.Content.ReadAsStringAsync());
+            HttpResponseMessage response = await HttpClient.SendAsync(message);
+            string receivedString = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+                return receivedString;
+            else throw new APIException(receivedString);
         }
     }
 }

@@ -4,15 +4,15 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class LimitOrder : Order, IOrder
     {
-        public SymbolsEnum.Symbols Symbol { get; set; }
-        public SideEnum.SideTypes Side { get; set; }
-        public TypesOrderEnum.Types Type { get; } = TypesOrderEnum.Types.LIMIT;
-        public WorkingTypeEnum.WorkingType WorkingType { get; set; }
+        public Symbols Symbol { get; set; }
+        public SideTypes Side { get; set; }
+        public Types Type { get; } = Types.LIMIT;
+        public WorkingType WorkingType { get; set; }
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }
         public bool ReduceOnly { get; set; }
-        public TimeInForceEnum.TineInForceTypes TimeInForce { get; set; }
-        public LimitOrder(SymbolsEnum.Symbols symbol, SideEnum.SideTypes side, decimal quantity, decimal price, TimeInForceEnum.TineInForceTypes timeInForce)
+        public TineInForceTypes TimeInForce { get; set; }
+        public LimitOrder(Symbols symbol, SideTypes side, decimal quantity, decimal price, TineInForceTypes timeInForce)
         {
             Symbol = symbol;
             Side = side;

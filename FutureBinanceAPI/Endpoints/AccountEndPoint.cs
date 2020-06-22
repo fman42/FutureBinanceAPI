@@ -14,13 +14,13 @@ namespace FutureBinanceAPI.Endpoints
         public AccountEndPoint(AuthClient client)
         {
             Client = client;
-            HttpBuilder = new AuthBuilder(Client, Client.DebugMode);
+            HttpBuilder = new AuthBuilder(Client);
         }
 
-        public async Task<Account> Get()
+        public async Task<Account> GetAsync()
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Get, APIEndPoint);
-            return await Client.SendRequest<Account>(message);
+            return await Client.SendRequestAsync<Account>(message);
         }
     }
 }
