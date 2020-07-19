@@ -1,6 +1,6 @@
 ﻿namespace FutureBinanceAPI.Models.Enums
 {
-    public enum TineInForceTypes
+    public enum TimeInForceTypes
     {
         GTC,
         IOC,

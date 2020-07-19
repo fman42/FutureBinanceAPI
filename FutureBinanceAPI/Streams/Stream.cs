@@ -12,20 +12,25 @@ namespace FutureBinanceAPI.Streams
         public ExchangeEvent Event { get; } = new ExchangeEvent();
 
         private ClientWebSocket ClientWS { get; }
+
         private readonly string UserListenKey;
-        private string WSUrl { get; } = "wss://stream.binancefuture.com/ws";
+
+        private const string DefaultWSBasePoint = "wss://stream.binancefuture.com/ws";
+
+        private string WSUrl { get; }
+
+        private static int DefaultSizeByteArray { get; } = 600;
         #endregion
 
         #region Init
+        public Stream(string userListenKey) : this(userListenKey, DefaultWSBasePoint) { }
+
         public Stream(string userListenKey, string webSocketUrl)
         {
+            ClientWS = new ClientWebSocket();
+
             UserListenKey = userListenKey;
             WSUrl = webSocketUrl;
-        }
-
-        public Stream(string userListenKey)
-        {
-            UserListenKey = userListenKey;
         }
         #endregion
 
@@ -45,8 +50,7 @@ namespace FutureBinanceAPI.Streams
 
         private async Task<string> ReadMessageOfStream()
         {
-            int defaultSizeByteArray = 300;
-            byte[] defaultBytesArray = new byte[defaultSizeByteArray];
+            byte[] defaultBytesArray = new byte[DefaultSizeByteArray];
             WebSocketReceiveResult webSocketResponse = await ClientWS.ReceiveAsync(defaultBytesArray, CancellationToken.None);
 
             if (webSocketResponse.EndOfMessage) 
@@ -54,14 +58,20 @@ namespace FutureBinanceAPI.Streams
 
             while (defaultBytesArray.Length - webSocketResponse.Count == 0)
             {
-                byte[] bytesBuffer = new byte[defaultBytesArray.Length];
-                defaultBytesArray.CopyTo(bytesBuffer, 0);
-                defaultBytesArray = new byte[defaultBytesArray.Length + defaultSizeByteArray];
-                //bytesBuffer.CopyTo(defaultBytesArray, 0);
+                swapBytesArray(ref defaultBytesArray);
                 webSocketResponse = await ClientWS.ReceiveAsync(defaultBytesArray, CancellationToken.None);
             }
 
             return ToString(defaultBytesArray);
+        }
+
+        private void swapBytesArray(ref byte[] defaultByteArray)
+        {
+            byte[] buffer = new byte[defaultByteArray.Length];
+            defaultByteArray.CopyTo(buffer, 0);
+
+            defaultByteArray = new byte[defaultByteArray.Length + DefaultSizeByteArray];
+            buffer.CopyTo(defaultByteArray, 0);
         }
 
         private string ToString(byte[] bytes) => Encoding.UTF8.GetString(bytes);

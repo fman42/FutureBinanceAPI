@@ -11,8 +11,8 @@ namespace FutureBinanceAPI.Models.Orders
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }
         public bool ReduceOnly { get; set; }
-        public TineInForceTypes TimeInForce { get; set; }
-        public LimitOrder(Symbols symbol, SideTypes side, decimal quantity, decimal price, TineInForceTypes timeInForce)
+        public TimeInForceTypes TimeInForce { get; set; }
+        public LimitOrder(Symbols symbol, SideTypes side, decimal quantity, decimal price, TimeInForceTypes timeInForce)
         {
             Symbol = symbol;
             Side = side;

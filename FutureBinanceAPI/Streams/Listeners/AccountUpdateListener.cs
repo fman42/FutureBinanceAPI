@@ -5,14 +5,14 @@ using FutureBinanceAPI.Streams.Interfaces;
 
 namespace FutureBinanceAPI.Streams.Listeners
 {
-    public class MarginListener : BaseListener<StreamMarginCall>, IListener
+    public class AccountUpdateListener : BaseListener<AccountUpdateCall>, IListener
     {
         #region Var
-        public EventTypes Type => EventTypes.MARGIN_CALL;
+        public EventTypes Type => EventTypes.ACCOUNT_UPDATE;
         #endregion
 
         #region Init
-        public MarginListener(Action<StreamMarginCall> callback) : base(callback) { }
+        public AccountUpdateListener(Action<AccountUpdateCall> callback) : base(callback) { }
         #endregion
     }
 }
