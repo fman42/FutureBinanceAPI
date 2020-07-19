@@ -1,9 +1,9 @@
 ﻿using System;
 using FutureBinanceAPI.Models.Enums;
 using FutureBinanceAPI.Models.Events;
-using FutureBinanceAPI.Streams.Interfaces;
+using FutureBinanceAPI.Stream.Interfaces;
 
-namespace FutureBinanceAPI.Streams.Listeners
+namespace FutureBinanceAPI.Stream.Listeners
 {
     public class MarginListener : BaseListener<StreamMarginCall>, IListener
     {

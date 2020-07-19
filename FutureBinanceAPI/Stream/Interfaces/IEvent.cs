@@ -1,4 +1,4 @@
-﻿namespace FutureBinanceAPI.Streams.Interfaces
+﻿namespace FutureBinanceAPI.Stream.Interfaces
 {
     public interface IEvent
     {

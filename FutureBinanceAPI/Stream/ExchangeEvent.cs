@@ -1,11 +1,11 @@
 ﻿using FutureBinanceAPI.Models.Enums;
-using FutureBinanceAPI.Streams.Interfaces;
+using FutureBinanceAPI.Stream.Interfaces;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FutureBinanceAPI.Streams
+namespace FutureBinanceAPI.Stream
 {
     public class ExchangeEvent : IEvent
     {

@@ -6,8 +6,11 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
 {
     class DefaultBuilder : Builder, IHttpBuilder
     {
+        #region Var
         public DefaultBuilder(Client client) : base(client.DebugMode) { }
+        #endregion
 
+        #region Methods
         public HttpRequestMessage MakeRequest(string url, IEnumerable<KeyValuePair<string, string>> args = null)
         {
             string requestUrl = GetRequestUrl(url);
@@ -20,5 +23,6 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
         {
             throw new System.NotImplementedException();
         }
+        #endregion
     }
 }

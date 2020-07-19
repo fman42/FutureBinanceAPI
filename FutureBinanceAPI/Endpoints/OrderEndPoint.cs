@@ -11,15 +11,23 @@ namespace FutureBinanceAPI.Endpoints
 {
     public class OrderEndPoint : IEndpoint
     {
+        #region Var
         public string APIEndPoint { get; } = "/fapi/v1";
+
         private AuthClient Client { get; set; }
+
         private IHttpBuilder HttpBuilder { get; set; }
+        #endregion
+
+        #region Init
         public OrderEndPoint(AuthClient client)
         {
             Client = client;
             HttpBuilder = new AuthBuilder(Client);
         }
+        #endregion
 
+        #region Methods
         public async Task<Order> SetAsync(Orders.IOrder order)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/order",
@@ -56,5 +64,6 @@ namespace FutureBinanceAPI.Endpoints
             ResponseStatus response = await Client.SendRequestAsync<ResponseStatus>(message);
             return response.Code == 200;
         }
+        #endregion
     }
 }

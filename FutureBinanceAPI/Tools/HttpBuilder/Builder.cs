@@ -7,18 +7,24 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
 {
     class Builder
     {
+        #region Var
         protected readonly string API_BASE = "https://fapi.binance.com";
         protected readonly string API_BASE_TEST = "https://testnet.binancefuture.com";
     
         private bool DebugMode { get; set; }
+        #endregion
 
+        #region Init
         public Builder(bool debug = false)
         {
             DebugMode = debug;
         }
+        #endregion
 
+        #region Methods
         protected string GetRequestUrl(string url) => DebugMode ? $"{API_BASE_TEST}{url}"
             : $"{API_BASE}{url}";
+
         protected string CreateQueryString(IEnumerable<KeyValuePair<string, string>> args)
         {
             string[] queryStrings = new string[args.Count()];
@@ -30,6 +36,7 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
             return "?" + string.Join("&", queryStrings);
         }
 
-        protected long GetTimeStamp() => (long)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalMilliseconds;
+        protected long GetTimeStamp() => (long) DateTime.UtcNow.Subtract(DateTime.UnixEpoch).TotalMilliseconds;
+        #endregion
     }
 }

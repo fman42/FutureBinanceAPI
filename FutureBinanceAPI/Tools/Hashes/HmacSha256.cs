@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace FutureBinanceAPI.Tools.Cipher
+namespace FutureBinanceAPI.Tools.Hashes
 {
-    internal static class RequestCrypter
+    internal static class HmacSha256
     {
-        public static string CreateHMAC(string secretKey, FormUrlEncodedContent args)
+        public static string Create(string secretKey, FormUrlEncodedContent args)
         {
             HMACSHA256 hash = new HMACSHA256(GetBytes(secretKey));
             byte[] bytes = hash.ComputeHash(args.ReadAsByteArrayAsync().Result);

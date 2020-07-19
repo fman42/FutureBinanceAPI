@@ -4,7 +4,7 @@ using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FutureBinanceAPI.Streams
+namespace FutureBinanceAPI.Stream
 {
     public class Stream : IDisposable
     {

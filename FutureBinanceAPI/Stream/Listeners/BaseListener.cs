@@ -2,7 +2,7 @@
 using FutureBinanceAPI.Models.Events;
 using Newtonsoft.Json;
 
-namespace FutureBinanceAPI.Streams.Listeners
+namespace FutureBinanceAPI.Stream.Listeners
 {
     public class BaseListener<T> where T: IEventModel
     {

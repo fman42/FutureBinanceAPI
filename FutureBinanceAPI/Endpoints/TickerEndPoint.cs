@@ -10,15 +10,23 @@ namespace FutureBinanceAPI.Endpoints
 {
     public class TickerEndPoint : IEndpoint
     {
+        #region Var
         public string APIEndPoint { get; } = "/fapi/v1/ticker";
+
         private Client Client { get; set; }
+
         private IHttpBuilder HttpBuilder { get; set; }
+        #endregion
+
+        #region Init
         public TickerEndPoint(Client client)
         {
             Client = client;
             HttpBuilder = new DefaultBuilder(Client);
         }
+        #endregion
 
+        #region Methods
         public async Task<IEnumerable<PriceTicker>> GetPriceTickerAsync() =>
             await Client.SendRequestAsync<IEnumerable<PriceTicker>>(HttpBuilder.MakeRequest(APIEndPoint + "/price"));
 
@@ -40,5 +48,6 @@ namespace FutureBinanceAPI.Endpoints
 
             return await Client.SendRequestAsync<BookTicker>(message);
         }
+        #endregion
     }
 }

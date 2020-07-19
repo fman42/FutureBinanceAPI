@@ -1,7 +1,7 @@
 ﻿using FutureBinanceAPI.API;
 using System.Collections.Generic;
 using System.Net.Http;
-using FutureBinanceAPI.Tools.Cipher;
+using FutureBinanceAPI.Tools.Hashes;
 using System.Linq;
 using System;
 
@@ -9,12 +9,18 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
 {
     class AuthBuilder : Builder, IHttpBuilder
     {
+        #region Var
         private AuthClient Client { get; }
+        #endregion
+
+        #region Init
         public AuthBuilder(AuthClient client) : base(client.DebugMode)
         {
             Client = client;
         }
+        #endregion
 
+        #region Methods
         public HttpRequestMessage MakeRequest(string url, IEnumerable<KeyValuePair<string, string>> args = null)
         {
             return MakeRequest(HttpMethod.Get, url, args);
@@ -39,7 +45,7 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
         {
             Dictionary<string, string> requestCollection = args.ToDictionary(x => x.Key, x => x.Value);
             requestCollection = SetPrimaryFields(requestCollection);
-            requestCollection.Add("signature", RequestCrypter.CreateHMAC(Client.SecretKey,
+            requestCollection.Add("signature", HmacSha256.Create(Client.SecretKey,
                 new FormUrlEncodedContent(requestCollection)));
 
             return requestCollection;
@@ -51,5 +57,6 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
             args.Add("timestamp", GetTimeStamp().ToString());
             return args;
         }
+        #endregion
     }
 }

@@ -10,15 +10,23 @@ namespace FutureBinanceAPI.Endpoints
 {
     public class TradeEndPoint : IEndpoint
     {
+        #region Var
         public string APIEndPoint { get; } = "/fapi/v1";
+
         private AuthClient Client { get; set; }
+
         private IHttpBuilder HttpBuilder { get; set; }
+        #endregion
+
+        #region Init
         public TradeEndPoint(AuthClient client)
         {
             Client = client;
             HttpBuilder = new AuthBuilder(Client);
         }
+        #endregion
 
+        #region Methods
         public async Task<Leverage> SetLeverageAsync(Symbols symbol, int value)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/leverage", new[] {
@@ -36,7 +44,8 @@ namespace FutureBinanceAPI.Endpoints
             });
 
             ResponseStatus response = await Client.SendRequestAsync<ResponseStatus>(message);
-            return response != null ? response.Code == 200 && response.Msg == "success" : false;
+            return response != null && response.Code == 200 && response.Msg == "success";
         }
+        #endregion
     }
 }
