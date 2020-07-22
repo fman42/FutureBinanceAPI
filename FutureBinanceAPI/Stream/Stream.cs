@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Net.WebSockets;
 using System.Threading;
-using System.Text;
 using System.Threading.Tasks;
+using FutureBinanceAPI.Tools.Stream;
+using FutureBinanceAPI.API;
 
 namespace FutureBinanceAPI.Stream
 {
@@ -13,68 +14,45 @@ namespace FutureBinanceAPI.Stream
 
         private ClientWebSocket ClientWS { get; }
 
-        private readonly string UserListenKey;
-
-        private const string DefaultWSBasePoint = "wss://stream.binancefuture.com/ws";
-
-        private string WSUrl { get; }
-
-        private static int DefaultSizeByteArray { get; } = 600;
+        private StreamClient Client { get; }
         #endregion
 
         #region Init
-        public Stream(string userListenKey) : this(userListenKey, DefaultWSBasePoint) { }
-
-        public Stream(string userListenKey, string webSocketUrl)
-        {
-            ClientWS = new ClientWebSocket();
-
-            UserListenKey = userListenKey;
-            WSUrl = webSocketUrl;
-        }
+        public Stream(StreamClient client) => (ClientWS, Client) = (new ClientWebSocket(), client);
         #endregion
 
         #region Methods
         public void Dispose() => ClientWS.Dispose();
 
-        public async void ConnectToExchange(Action<ClientWebSocket> onCloseConnection)
+        public async void ConnectToExchangeAsync(Action<ClientWebSocket> onCloseConnection)
         {
-            await ClientWS.ConnectAsync(new Uri(WSUrl + $"/{UserListenKey}"), CancellationToken.None);
+            await ClientWS.ConnectAsync(new Uri($"{Client.WSUrl}/{Client.UserListenKey}"), CancellationToken.None);
+
             while (ClientWS.State == WebSocketState.Open)
             {
-                Event.Alert(await ReadMessageOfStream());
+                Event.Alert(await ReadMessageOfStreamAsync());
             }
 
-            if (ClientWS.State != WebSocketState.Open) onCloseConnection(ClientWS);
+            if (ClientWS.State != WebSocketState.Open)
+                onCloseConnection(ClientWS);
         }
 
-        private async Task<string> ReadMessageOfStream()
+        private async Task<string> ReadMessageOfStreamAsync()
         {
-            byte[] defaultBytesArray = new byte[DefaultSizeByteArray];
-            WebSocketReceiveResult webSocketResponse = await ClientWS.ReceiveAsync(defaultBytesArray, CancellationToken.None);
+            StreamBytes.RewriteByteArray();
+            WebSocketReceiveResult webSocketResponse = await ClientWS.ReceiveAsync(StreamBytes.DefaultBytesArray, CancellationToken.None);
 
-            if (webSocketResponse.EndOfMessage) 
-                return ToString(defaultBytesArray);
+            if (webSocketResponse.EndOfMessage)
+                return StreamBytes.ToString();
 
-            while (defaultBytesArray.Length - webSocketResponse.Count == 0)
+            while (StreamBytes.DefaultBytesArray.Length - webSocketResponse.Count == 0)
             {
-                swapBytesArray(ref defaultBytesArray);
-                webSocketResponse = await ClientWS.ReceiveAsync(defaultBytesArray, CancellationToken.None);
+                webSocketResponse = await ClientWS.ReceiveAsync(StreamBytes.ReceivedNewMessage, CancellationToken.None);
+                StreamBytes.SwopArrayBytes();
             }
 
-            return ToString(defaultBytesArray);
+            return StreamBytes.ToString();
         }
-
-        private void swapBytesArray(ref byte[] defaultByteArray)
-        {
-            byte[] buffer = new byte[defaultByteArray.Length];
-            defaultByteArray.CopyTo(buffer, 0);
-
-            defaultByteArray = new byte[defaultByteArray.Length + DefaultSizeByteArray];
-            buffer.CopyTo(defaultByteArray, 0);
-        }
-
-        private string ToString(byte[] bytes) => Encoding.UTF8.GetString(bytes);
         #endregion
     }
 }

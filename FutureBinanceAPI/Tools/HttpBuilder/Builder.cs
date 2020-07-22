@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FutureBinanceAPI.Tools.HttpBuilder
 {
-    class Builder
+    internal class Builder
     {
         #region Var
         protected readonly string API_BASE = "https://fapi.binance.com";

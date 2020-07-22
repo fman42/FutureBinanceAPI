@@ -26,7 +26,7 @@ namespace FutureBinanceAPI.Endpoints
         #endregion
 
         #region Methods
-        public async Task<string> Start()
+        public async Task<string> StartAsync()
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, APIEndPoint, null);
             string response = await Client.SendRequestAsync(message);
@@ -34,9 +34,9 @@ namespace FutureBinanceAPI.Endpoints
             return JObject.Parse(response)["listenKey"].ToString();
         }
 
-        public async void Delete() => await Client.SendRequestAsync(HttpBuilder.MakeRequest(HttpMethod.Delete, APIEndPoint, null));
+        public async void DeleteAsync() => await Client.SendRequestAsync(HttpBuilder.MakeRequest(HttpMethod.Delete, APIEndPoint, null));
 
-        public async void KeepAlive() => await Client.SendRequestAsync(HttpBuilder.MakeRequest(HttpMethod.Put, APIEndPoint, null));
+        public async void KeepAliveAsync() => await Client.SendRequestAsync(HttpBuilder.MakeRequest(HttpMethod.Put, APIEndPoint, null));
         #endregion
     }
 }

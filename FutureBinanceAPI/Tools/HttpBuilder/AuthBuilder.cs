@@ -7,7 +7,7 @@ using System;
 
 namespace FutureBinanceAPI.Tools.HttpBuilder
 {
-    class AuthBuilder : Builder, IHttpBuilder
+    internal class AuthBuilder : Builder, IHttpBuilder
     {
         #region Var
         private AuthClient Client { get; }
@@ -29,7 +29,8 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
         public HttpRequestMessage MakeRequest(HttpMethod method, string url, IEnumerable<KeyValuePair<string, string>> args = null)
         {
             HttpRequestMessage content = new HttpRequestMessage(method, GetRequestUrl(url));
-            if (args == null) args = Enumerable.Empty<KeyValuePair<string, string>>();
+            if (args is null)
+                args = Enumerable.Empty<KeyValuePair<string, string>>();
 
             content.Headers.Add("X-MBX-APIKEY", Client.APIKey);
             if (method == HttpMethod.Get)

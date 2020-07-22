@@ -26,6 +26,14 @@
         NEOUSDT,
         QTUMUSDT,
         IOSTUSDT,
-        THETAUSDT
+        THETAUSDT,
+        ALGOUSDT,
+        ZILUSDT,
+        KNCUSDT,
+        ZRXUSDT,
+        COMPUSDT,
+        OMGUSDT,
+        DOGEUSDT,
+        SXPUSDT
     }
 }

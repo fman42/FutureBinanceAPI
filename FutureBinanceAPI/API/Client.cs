@@ -10,14 +10,13 @@ namespace FutureBinanceAPI.API
         #region Var
         public bool DebugMode { get; private set; }
 
-        private static readonly HttpClient HttpClient = new HttpClient(new HttpClientHandler() { UseProxy = false });
+        private static readonly HttpClient HttpClient = new HttpClient(new HttpClientHandler() {
+            UseProxy = false
+        });
         #endregion
 
         #region Init
-        public Client(bool debug)
-        {
-            DebugMode = debug;
-        }
+        public Client(bool debug) => DebugMode = debug;
         #endregion
 
         #region Methods

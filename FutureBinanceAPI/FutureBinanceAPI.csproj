@@ -22,5 +22,6 @@
   <ItemGroup>
     <Folder Include="Models\Events\General\" />
     <Folder Include="CustomRequest\" />
+    <Folder Include="Tools\Stream\" />
   </ItemGroup>
 </Project>

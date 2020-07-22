@@ -11,16 +11,12 @@ namespace FutureBinanceAPI.Stream.Listeners
         #endregion
 
         #region Init
-        public BaseListener(Action<T> callback)
-        {
-            UserCallback = callback;
-        }
+        public BaseListener(Action<T> callback) => UserCallback = callback;
         #endregion
 
         #region General methods
         public void Update(string message) =>
             UserCallback(JsonConvert.DeserializeObject<T>(message));
-
         #endregion
     }
 }
