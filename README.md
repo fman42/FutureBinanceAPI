@@ -1,5 +1,8 @@
 ## Future Binance API
 
+![GitHub](https://img.shields.io/github/license/fman42/FutureBinanceAPI?logo=1)
+![Nuget](https://img.shields.io/nuget/v/FutureBinanceAPI?logo=1)
+
 <img src="./icon.png" width="200px">
 
 This library allows to you use simply an API of crypto exchange **Future Binance**
@@ -8,19 +11,28 @@ In this moment the library supports main methods of API and has a custom request
 
 ## 0. Clients
 
-There are 2 clients: **AuthClient** and **DefaultClient**. AuthClient has API-key and Secret-Key for HTTP-request. DefaultClient will use for non-auth request(**Endpoint's Market** and etc...)
+There are 3 clients: **AuthClient**, **DefaultClient** and **StreamClient**. 
+
+AuthClient has API-key and Secret-Key for HTTP-request.   
+DefaultClient will use for non-auth request(**Endpoint's Market** and etc...)  
+StreamClient will use for stream events(see **4. Stream**)
 
 In depending of type a constructor has another arguments:
 ```csharp
 AuthClient(string _APIKey, string _SecretKey, bool debug = false)
 ...
 DefaultClient(bool debug = false)
+...
+StreamClient(string userListenKey)
+...
+StreamClient(string userListenKey, string webSocketUrl)
 ```
 
 Create a client:
 ```csharp
 AuthClient authClient = new AuthClient("my_api_key", "my_secret_key", true); // Create the client for an auth request
-DefaultClient = new DefaultClient(); // Create the client for no auth request
+DefaultClient defaultClient = new DefaultClient(); // Create the client for no auth request
+StreamClient streamClient = new StreamClient("listener_key"); // Create the client for stream events
 ```
 
 You can change **RecvWindow** for a client
@@ -315,16 +327,16 @@ string response = await customRequest.SendAsync(null, HttpMethod.Get, "/fapi/v1/
 Console.WriteLine(response); // Output in JSON
 ```
 
-## Stream
+## 4. Stream
 
 FutureBinance give an ability to listen events from their servers. And with a help this library, you can do it easily
 
 First, create new API Client type - **StreamClient**. It use in conustrctor 2 parameters: **listenKey** and **webSocketUrl**
 
 ```csharp
-public StreamClient(string userListenKey)
+StreamClient(string userListenKey)
 
-public StreamClient(string userListenKey, string webSocketUrl)
+StreamClient(string userListenKey, string webSocketUrl)
 ```
 
 Examples:
