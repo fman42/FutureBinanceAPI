@@ -14,9 +14,9 @@ namespace FutureBinanceAPI.Stream
         #endregion
 
         #region Methods
-        public void AddListener(IListener listener) => Listeners.Add(listener);
+        public void Add(IListener listener) => Listeners.Add(listener);
 
-        public bool RemoveListener(IListener listener)
+        public bool Remove(IListener listener)
         {
             if (Listeners.Contains(listener))
             {
@@ -29,7 +29,7 @@ namespace FutureBinanceAPI.Stream
 
         public void Alert(string message)
         {
-            EventTypes type = (EventTypes) Enum.Parse(typeof(EventTypes), 
+            EventType type = (EventType) Enum.Parse(typeof(EventType), 
                 JObject.Parse(message)["e"].ToString());
 
             foreach (IListener listener in Listeners.Where(x => x.Type == type))

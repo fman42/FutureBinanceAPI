@@ -4,11 +4,11 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class LimitOrder : Order, IOrder
     {
-        public Symbols Symbol { get; set; }
+        public TraidingPair Symbol { get; set; }
 
-        public SideTypes Side { get; set; }
+        public Side Side { get; set; }
 
-        public Types Type { get; } = Types.LIMIT;
+        public OrderType Type { get; } = OrderType.LIMIT;
 
         public WorkingType WorkingType { get; set; }
 
@@ -18,11 +18,11 @@ namespace FutureBinanceAPI.Models.Orders
 
         public bool ReduceOnly { get; set; }
 
-        public TimeInForceTypes TimeInForce { get; set; }
+        public TimeInForceType TimeInForce { get; set; }
 
-        public LimitOrder(Symbols symbol, SideTypes side, decimal quantity, decimal price, TimeInForceTypes timeInForce)
+        public LimitOrder(TraidingPair traidingPair, Side side, decimal quantity, decimal price, TimeInForceType timeInForce)
         {
-            Symbol = symbol;
+            Symbol = traidingPair;
             Side = side;
             Quantity = quantity;
             Price = price;

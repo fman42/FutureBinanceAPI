@@ -8,7 +8,7 @@ namespace FutureBinanceAPI.Stream.Listeners
     public class OrderTradeUpdateListener : BaseListener<OrderTradeUpdateCall>, IListener
     {
         #region Var
-        public EventTypes Type => EventTypes.ORDER_TRADE_UPDATE;
+        public EventType Type => EventType.ORDER_TRADE_UPDATE;
         #endregion
 
         #region Init

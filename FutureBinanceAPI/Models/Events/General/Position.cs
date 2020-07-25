@@ -4,13 +4,13 @@ namespace FutureBinanceAPI.Models.Events.General
 {
     public class Position
     {
-        public Symbols Symbol { get; set; }
+        public TraidingPair Symbol { get; set; }
 
-        public SideTypes Side { get; set; }
+        public Side Side { get; set; }
 
         public decimal Ammount { get; set; }
 
-        public MarginTypes MarginType { get; set; }
+        public MarginType MarginType { get; set; }
 
         public decimal IsolatedWallet { get; set; }
 

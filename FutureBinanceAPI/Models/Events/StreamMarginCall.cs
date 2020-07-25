@@ -7,7 +7,7 @@ namespace FutureBinanceAPI.Models.Events
     public class StreamMarginCall : IEventModel
     {
         [JsonProperty("e")]
-        public EventTypes EventType { get; } = EventTypes.MARGIN_CALL;
+        public EventType EventType { get; } = EventType.MARGIN_CALL;
 
         [JsonProperty("E")]
         public long Time { get; set; }

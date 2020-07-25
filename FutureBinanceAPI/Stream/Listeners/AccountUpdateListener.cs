@@ -8,7 +8,7 @@ namespace FutureBinanceAPI.Stream.Listeners
     public class AccountUpdateListener : BaseListener<AccountUpdateCall>, IListener
     {
         #region Var
-        public EventTypes Type => EventTypes.ACCOUNT_UPDATE;
+        public EventType Type => EventType.ACCOUNT_UPDATE;
         #endregion
 
         #region Init

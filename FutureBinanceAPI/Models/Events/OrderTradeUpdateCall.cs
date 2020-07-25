@@ -6,7 +6,7 @@ namespace FutureBinanceAPI.Models.Events
     public class OrderTradeUpdateCall : IEventModel
     {
         [JsonProperty("e")]
-        public EventTypes EventType { get; } = EventTypes.ORDER_TRADE_UPDATE;
+        public EventType EventType { get; } = EventType.ORDER_TRADE_UPDATE;
 
         [JsonProperty("E")]
         public long Time { get; set; }

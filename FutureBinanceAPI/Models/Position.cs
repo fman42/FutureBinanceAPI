@@ -8,7 +8,7 @@ namespace FutureBinanceAPI.Models
 
         public float Leverage { get; set; }
 
-        public Symbols Symbol { get; set; }
+        public TraidingPair Symbol { get; set; }
 
         public decimal EntryPrice { get; set; }
     }

@@ -6,7 +6,7 @@ namespace FutureBinanceAPI.Models.Events
     public class StreamExpired : IEventModel
     {
         [JsonProperty("e")]
-        public EventTypes EventType { get; } = EventTypes.listenKeyExpired;
+        public EventType EventType { get; } = EventType.listenKeyExpired;
 
         [JsonProperty("T")]
         public long Time { get; set; }

@@ -10,7 +10,7 @@ namespace FutureBinanceAPI.Stream
     public class Stream : IDisposable
     {
         #region Vars
-        public ExchangeEvent Event { get; } = new ExchangeEvent();
+        public ExchangeEvent Events { get; } = new ExchangeEvent();
 
         private ClientWebSocket ClientWS { get; }
 
@@ -24,13 +24,13 @@ namespace FutureBinanceAPI.Stream
         #region Methods
         public void Dispose() => ClientWS.Dispose();
 
-        public async void ConnectToExchangeAsync(Action<ClientWebSocket> onCloseConnection)
+        public async void ConnectAsync(Action<ClientWebSocket> onCloseConnection)
         {
             await ClientWS.ConnectAsync(new Uri($"{Client.WSUrl}/{Client.UserListenKey}"), CancellationToken.None);
 
             while (ClientWS.State == WebSocketState.Open)
             {
-                Event.Alert(await ReadMessageOfStreamAsync());
+                Events.Alert(await ReadMessageOfStreamAsync());
             }
 
             if (ClientWS.State != WebSocketState.Open)

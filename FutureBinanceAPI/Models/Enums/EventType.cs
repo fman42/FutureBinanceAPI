@@ -1,6 +1,6 @@
 ﻿namespace FutureBinanceAPI.Models.Enums
 {
-    public enum EventTypes
+    public enum EventType
     {
         listenKeyExpired,
         MARGIN_CALL,

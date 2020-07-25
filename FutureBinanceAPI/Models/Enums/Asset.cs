@@ -1,8 +1,8 @@
 ﻿namespace FutureBinanceAPI.Models.Enums
 {
-    public enum SideTypes
+    public enum Asset
     {
-        BUY,
-        SELL
+        USDT,
+        BNB
     }
 }

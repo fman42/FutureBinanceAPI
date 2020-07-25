@@ -15,10 +15,7 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
         #endregion
 
         #region Init
-        public Builder(bool debug = false)
-        {
-            DebugMode = debug;
-        }
+        public Builder(bool debug = false) => DebugMode = debug;
         #endregion
 
         #region Methods

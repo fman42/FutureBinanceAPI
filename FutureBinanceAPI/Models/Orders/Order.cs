@@ -18,8 +18,9 @@ namespace FutureBinanceAPI.Models.Orders
 
         private string ConvertToString(object value)
         {
-            if (value is bool) return value.ToString().ToLower();
-            else return value is decimal ? ((decimal)value).ToString(new CultureInfo("en-US")) : value.ToString();
+            if (value is bool)
+                return value.ToString().ToLower();
+            else return value is decimal @decimal ? @decimal.ToString(new CultureInfo("en-US")) : value.ToString();
         }
     }
 }

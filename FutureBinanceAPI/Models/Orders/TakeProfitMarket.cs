@@ -4,15 +4,15 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class TakeProfitMarket : Order, IOrder
     {
-        public Symbols Symbol { get; set; }
+        public TraidingPair Symbol { get; set; }
 
-        public SideTypes Side { get; set; }
+        public Side Side { get; set; }
 
-        public Types Type { get; } = Types.TAKE_PROFIT_MARKET;
+        public OrderType Type { get; } = OrderType.TAKE_PROFIT_MARKET;
 
         public WorkingType WorkingType { get; set; }
 
-        public ClosePosition ClosePosition { get; set; }
+        public ClosePositionType ClosePosition { get; set; }
 
         public decimal Quantity { get; set; }
 
@@ -20,9 +20,9 @@ namespace FutureBinanceAPI.Models.Orders
 
         public bool ReduceOnly { get; set; }
 
-        public TakeProfitMarket(Symbols symbol, SideTypes side, decimal quantity, decimal stopPrice)
+        public TakeProfitMarket(TraidingPair traidingPair, Side side, decimal quantity, decimal stopPrice)
         {
-            Symbol = symbol;
+            Symbol = traidingPair;
             Side = side;
             StopPrice = stopPrice;
             Quantity = quantity;

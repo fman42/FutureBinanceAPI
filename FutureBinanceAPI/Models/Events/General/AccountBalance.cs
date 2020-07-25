@@ -6,7 +6,7 @@ namespace FutureBinanceAPI.Models.Events.General
     public class AccountBalance
     {
         [JsonProperty("a")]
-        public Assets Symbol { get; set; }
+        public Asset Symbol { get; set; }
 
         [JsonProperty("wb")]
         public decimal WalletBalance { get; set; }

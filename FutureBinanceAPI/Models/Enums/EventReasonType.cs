@@ -1,6 +1,6 @@
 ﻿namespace FutureBinanceAPI.Models.Enums
 {
-    public enum EventReasonTypes
+    public enum EventReasonType
     {
         DEPOSIT,
         WITHDRAW,

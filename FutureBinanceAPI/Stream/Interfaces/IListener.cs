@@ -4,7 +4,7 @@ namespace FutureBinanceAPI.Stream.Interfaces
 {
     public interface IListener
     {
-        EventTypes Type { get; }
+        EventType Type { get; }
 
         void Update(string message);
     }

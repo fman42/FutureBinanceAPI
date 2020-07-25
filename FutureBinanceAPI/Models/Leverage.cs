@@ -10,6 +10,6 @@ namespace FutureBinanceAPI.Models
         [JsonProperty("leverage")]
         public decimal LeverageValue { get; set; }
 
-        public Symbols Symbol { get; set; }
+        public TraidingPair Symbol { get; set; }
     }
 }

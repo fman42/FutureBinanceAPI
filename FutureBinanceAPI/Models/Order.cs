@@ -14,10 +14,10 @@ namespace FutureBinanceAPI.Models
 
         public decimal StopPrice { get; set; }
 
-        public SideTypes Side { get; set; }
+        public Side Side { get; set; }
 
-        public Symbols Symbol { get; set; }
+        public TraidingPair Symbol { get; set; }
 
-        public Types Type { get; set; }
+        public OrderType Type { get; set; }
     }
 }

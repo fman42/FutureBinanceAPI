@@ -6,19 +6,19 @@ namespace FutureBinanceAPI.Models.Events.General
     public class Order
     {
         [JsonProperty("s")]
-        public Symbols Symbol { get; set; }
+        public TraidingPair Symbol { get; set; }
 
         [JsonProperty("c")]
         public string ClientId { get; set; }
 
         [JsonProperty("S")]
-        public SideTypes Side { get; set; }
+        public Side Side { get; set; }
 
         [JsonProperty("o")]
-        public Types OrderType { get; set; }
+        public OrderType OrderType { get; set; }
 
         [JsonProperty("f")]
-        public TimeInForceTypes TimeInForce { get; set; }
+        public TimeInForceType TimeInForce { get; set; }
 
         [JsonProperty("q")]
         public decimal OriginalQuantity { get; set; }
@@ -30,10 +30,10 @@ namespace FutureBinanceAPI.Models.Events.General
         public decimal StopPrice { get; set; }
 
         [JsonProperty("x")]
-        public OrderStatuses ExecutedOrderStatus { get; set; }
+        public OrderStatus ExecutedOrderStatus { get; set; }
 
         [JsonProperty("X")]
-        public OrderStatuses OrderStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; }
 
         [JsonProperty("i")]
         public long OrderId { get; set; }

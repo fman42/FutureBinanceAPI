@@ -30,35 +30,35 @@ namespace FutureBinanceAPI.Endpoints
         #region Methods
         public async Task<Order> SetAsync(Orders.IOrder order)
         {
-            HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/order",
+            HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/openOrders",
                 order.ToKeyValuePair());
             return await Client.SendRequestAsync<Order>(message);
         }
 
-        public async Task<Order> GetAsync(Symbols symbol, long orderId)
+        public async Task<Order> GetAsync(TraidingPair traidingPair, long orderId)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Get, $"{APIEndPoint}/order", new[] {
-                new KeyValuePair<string,string>("symbol", symbol.ToString()),
+                new KeyValuePair<string,string>("symbol", traidingPair.ToString()),
                 new KeyValuePair<string,string>("orderId", orderId.ToString()),
             });
 
             return await Client.SendRequestAsync<Order>(message);
         }
 
-        public async Task<Order> CancelAsync(Symbols symbol, long orderId)
+        public async Task<Order> CancelAsync(TraidingPair traidingPair, long orderId)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Delete, $"{APIEndPoint}/order", new[] {
-                new KeyValuePair<string,string>("symbol", symbol.ToString()),
+                new KeyValuePair<string,string>("symbol", traidingPair.ToString()),
                 new KeyValuePair<string,string>("orderId", orderId.ToString()),
             });
 
             return await Client.SendRequestAsync<Order>(message);
         }
 
-        public async Task<bool> CancelAsync(Symbols symbol)
+        public async Task<bool> CancelAsync(TraidingPair traidingPair)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Delete, $"{APIEndPoint}/allOpenOrders", new[] {
-                new KeyValuePair<string,string>("symbol", symbol.ToString())
+                new KeyValuePair<string,string>("symbol", traidingPair.ToString())
             });
 
             ResponseStatus response = await Client.SendRequestAsync<ResponseStatus>(message);

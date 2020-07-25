@@ -14,17 +14,12 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
         #endregion
 
         #region Init
-        public AuthBuilder(AuthClient client) : base(client.DebugMode)
-        {
-            Client = client;
-        }
+        public AuthBuilder(AuthClient client) : base(client.DebugMode) => Client = client;
         #endregion
 
         #region Methods
         public HttpRequestMessage MakeRequest(string url, IEnumerable<KeyValuePair<string, string>> args = null)
-        {
-            return MakeRequest(HttpMethod.Get, url, args);
-        }
+            => MakeRequest(HttpMethod.Get, url, args);
 
         public HttpRequestMessage MakeRequest(HttpMethod method, string url, IEnumerable<KeyValuePair<string, string>> args = null)
         {

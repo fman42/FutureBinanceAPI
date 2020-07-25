@@ -2,9 +2,9 @@
 {
     public interface IEvent
     {
-        void AddListener(IListener listener);
+        void Add(IListener listener);
 
-        bool RemoveListener(IListener listener);
+        bool Remove(IListener listener);
 
         void Alert(string message);
     }

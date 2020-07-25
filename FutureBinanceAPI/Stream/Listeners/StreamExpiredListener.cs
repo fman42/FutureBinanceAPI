@@ -5,14 +5,14 @@ using EventModel = FutureBinanceAPI.Models.Events;
 
 namespace FutureBinanceAPI.Stream.Listeners
 {
-    public class StreamExpired : BaseListener<EventModel.StreamExpired>, IListener
+    public class StreamExpiredListener : BaseListener<EventModel.StreamExpired>, IListener
     {
         #region Var
-        public EventTypes Type => EventTypes.listenKeyExpired;
+        public EventType Type => EventType.listenKeyExpired;
         #endregion
 
         #region Init
-        public StreamExpired(Action<EventModel.StreamExpired> callback) : base(callback) { }
+        public StreamExpiredListener(Action<EventModel.StreamExpired> callback) : base(callback) { }
         #endregion
     }
 }

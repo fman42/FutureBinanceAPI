@@ -6,7 +6,7 @@ namespace FutureBinanceAPI.Models.Events
     public class AccountUpdateCall : IEventModel
     {
         [JsonProperty("e")]
-        public EventTypes EventType { get; } = EventTypes.ACCOUNT_UPDATE;
+        public EventType EventType { get; } = EventType.ACCOUNT_UPDATE;
 
         [JsonProperty("E")]
         public long Time { get; set; }

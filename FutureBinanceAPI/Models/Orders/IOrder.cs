@@ -5,11 +5,11 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public interface IOrder
     {
-        public Symbols Symbol { get; set; }
+        public TraidingPair Symbol { get; set; }
 
-        public SideTypes Side { get; set; }
+        public Side Side { get; set; }
 
-        public Types Type { get; }
+        public OrderType Type { get; }
 
         public IEnumerable<KeyValuePair<string, string>> ToKeyValuePair();
     }

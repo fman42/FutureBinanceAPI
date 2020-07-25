@@ -2,7 +2,7 @@
 
 This library allows to you use an API of crypto exchange **Future Binance**
 
-In this moment the library supports 40% of API(basic methods) and has a custom request
+In this moment the library supports main methods of API and has a custom request
 
 ## 0. Clients
 
@@ -10,7 +10,7 @@ There are 2 clients: **AuthClient** and **DefaultClient**. AuthClient has API-ke
 
 In depending of type a constructor has another arguments:
 ```csharp
-AuthClient(string APIKey, string SecretKey, bool debug = false)
+AuthClient(string _APIKey, string _SecretKey, bool debug = false)
 ...
 DefaultClient(bool debug = false)
 ```
@@ -18,7 +18,7 @@ DefaultClient(bool debug = false)
 Create a client:
 ```csharp
 AuthClient authClient = new AuthClient("my_api_key", "my_secret_key", true); // Create the client for an auth request
-DefaultClient = new DefaultClient(); // Create the client for a non-auth request
+DefaultClient = new DefaultClient(); // Create the client for no auth request
 ```
 
 You can change **RecvWindow** for a client
@@ -29,12 +29,13 @@ authClient.RecvWindow = 5000;
 
 ## 1. EndPoints
 
-Using a client object you can use anymore endpoint. A list of endpoints:
+Using a client object(**IClient**) you can use anymore endpoint. A list of endpoints:
 
 1) TickerEndPoint
 2) TradeEndPoint
 3) OrderEndPoint
 4) AccountEndPoint
+5) StreamEndPoint
 
 ### 1.1. TickerEndPoint
 ```csharp
@@ -50,13 +51,13 @@ Fetch latest price for a symbol or symbols.
 
 ```csharp
 public async Task<IEnumerable<PriceTicker>> GetPriceTickerAsync()
-public async Task<PriceTicker> GetPriceTickerAsync(Symbols symbol)
+public async Task<PriceTicker> GetPriceTickerAsync(TraidingPair symbol)
 ```
 Example:
 ```csharp
 ...
 IEnumerable<PriceTicker> priceSymbols = await market.GetPriceTickerAsync();
-PriceTicker priceSymbol = await market.GetPriceTickerAsync(Symbols.BTCUSDT);
+PriceTicker priceSymbol = await market.GetPriceTickerAsync(TraidingPair.BTCUSDT);
 ```
 
 **GetBookTicker**
@@ -64,14 +65,14 @@ PriceTicker priceSymbol = await market.GetPriceTickerAsync(Symbols.BTCUSDT);
 Fetch best price/qty on the order book for a symbol or symbols.
 ```csharp
 public async Task<IEnumerable<BookTicker>> GetBookTickerAsync()
-public async Task<BookTicker> GetBookTickerAsync(Symbols symbol)
+public async Task<BookTicker> GetBookTickerAsync(TraidingPair symbol)
 ```
 
 Example:
 ```csharp
 ...
 IEnumerable<BookTicker> bestPriceForSymbols = await market.GetBookTickerAsync();
-BookTicker bestPrice = await market.GetBookTickerAsync(Symbols.BTCUSDT);
+BookTicker bestPrice = await market.GetBookTickerAsync(TraidingPair.BTCUSDT);
 ```
 
 ### 1.2. TradeEndPoint
@@ -88,26 +89,45 @@ The endpoint has methods:
 
 Will set a leverage for a given symbol
 ```csharp
-public async Task<Leverage> SetLeverageAsync(Symbols symbol, int value)
+public async Task<Leverage> SetLeverageAsync(TraidingPair symbol, int value)
 ```
 
 Example:
 ```csharp
 ...
-Leverage setLeverage = await trade.SetLeverageAsync(Symbols.BTCUSDT, 25); // Set 25 leverage for BTCUSDT
+Leverage setLeverage = await trade.SetLeverageAsync(TraidingPair.BTCUSDT, 25); // Set 25 leverage for BTCUSDT
 ```
 
 **SetMarginType**
 
 Will set a margin type(**CROSSED** or **ISOLATED**) for a given symbol
 ```csharp
-public async Task<bool> SetMarginTypeAsync(Symbols symbol, MarginTypes marginType)
+public async Task<bool> SetMarginTypeAsync(TraidingPair symbol, MarginType marginType)
 ```
 
 Example:
 ```csharp
 ...
-bool changedMarginType = trade.SetMarginTypeAsync(Symbols.BTCUSDT, MarginTypes.CROSSED); // Set a margin type CROSSED
+public bool changedMarginType = trade.SetMarginTypeAsync(TraidingPair.BTCUSDT, MarginType.CROSSED); // Set a margin type CROSSED
+```
+
+**ModifiyIsolatedPositionMarge**
+```csharp
+public async Task<bool> ModifiyIsolatedPositionMarge(TraidingPair traidingPair, decimal amount, int type, PositionSide positionSide = PositionSide.BOTH)
+```
+
+**GetMarginChangesAsync**
+
+Get history of changes margin positions.
+**startTime** and **endTime** have unix format
+
+**limit** can contain a number at most 500
+```csharp
+public async Task<IEnumerable<MarginChange>> GetMarginChangesAsync(TraidingPair traidingPair, int limit = 100)
+
+public async Task<IEnumerable<MarginChange>> GetMarginChangesAsync(TraidingPair traidingPair, int type, int limit = 100)
+
+public async Task<IEnumerable<MarginChange>> GetMarginChangesAsync(TraidingPair traidingPair, int type, long startTime, long endTime, int limit = 100)
 ```
 
 ### 1.3. OrderEndPoint
@@ -129,7 +149,7 @@ public async Task<Order> SetAsync(Orders.IOrder order)
 Example:
 ```csharp
 ...
-MarketOrder marketOrder = new MarketOrder(Symbols.BTCUSDT, 0.100m); // Create a market order
+MarketOrder marketOrder = new MarketOrder(TraidingPair.BTCUSDT, 0.100m); // Create a market order
 Order newOrder = await order.SetAsync(marketOrder); // Send our market order to an exchange
 
 Console.WriteLine(newOrder.OrderId); // We received response from exchange and will write in a console
@@ -138,65 +158,65 @@ Console.WriteLine(newOrder.OrderId); // We received response from exchange and w
 #### 1.3.1. Types of orders:
 **-MarketOrder**
 ```csharp
-public MarketOrder(Symbols symbol, SideTypes side, decimal quantity)
+public MarketOrder(TraidingPair symbol, Side side, decimal quantity)
 ```
 
 **-LimitOrder**
 ```csharp
-public LimitOrder(Symbols symbol, SideTypes side, decimal quantity, decimal price, TimeInForceEnum.TineInForceTypes timeInForce)
+public LimitOrder(TraidingPair symbol, Side side, decimal quantity, decimal price, TimeInForceType timeInForce)
 ```
 
 **-StopOrder**
 ```csharp
-public StopOrder(Symbols symbol, SideTypes side, decimal quantity, decimal price, decimal stopPrice)
+public StopOrder(TraidingPair symbol, Side side, decimal quantity, decimal price, decimal stopPrice)
 ```
 
 **-TakeProfit**
 ```csharp
-public TakeProfit(Symbols symbol, SideTypes side, decimal quantity, decimal price, decimal stopPrice)
+public TakeProfit(TraidingPair symbol, Side side, decimal quantity, decimal price, decimal stopPrice)
 ```
 
 **-StopMarket**
 ```csharp
-public StopMarket(Symbols symbol, SideTypes side, decimal quantity, decimal stopPrice)
+public StopMarket(TraidingPair symbol, Side side, decimal quantity, decimal stopPrice)
 ```
 
 **-TakeProfitMarket**
 ```csharp
-public TakeProfitMarket(Symbols symbol, SideTypes side, decimal quantity, decimal stopPrice)
+public TakeProfitMarket(TraidingPair symbol, Side side, decimal quantity, decimal stopPrice)
 ```
 
 **-TrailingStopMarket**
 ```csharp
-public TrailingStopMarket(SymbolsEnum.Symbols symbol, SideTypes side, decimal quantity, decimal callbackRate)
+public TrailingStopMarket(TraidingPair symbol, Side side, decimal quantity, decimal callbackRate)
 ```
 
 **Get**
 
 Fetch info of order from an exchange
 ```csharp
-public async Task<Order> GetAsync(Symbols symbol, long orderId)
+public async Task<Order> GetAsync(TraidingPair symbol, long orderId)
 ```
 
 Example:
 ```csharp
 ...
-Order order = await order.GetAsync(Symbols.BTCUSDT, 10000045);
+Order order = await order.GetAsync(TraidingPair.BTCUSDT, 10000045);
 ```
 
 **Cancel**
 
 Will cancel a given order or all
 ```csharp
-public async Task<Order> CancelAsync(Symbols symbol, long orderId)
-public async Task<bool> CancelAsync(Symbols symbol)
+public async Task<Order> CancelAsync(TraidingPair symbol, long orderId)
+public async Task<bool> CancelAsync(TraidingPair symbol)
 ```
 
 Example:
 ```csharp
 ...
-Order canceledOrder = await order.CancelAsync(Symbols.BTCUSDT, 10000045);
-bool AreCanceledAllOrders = await order.CancelAsync(Symbols.BTCUSDT);
+Order canceledOrder = await order.CancelAsync(TraidingPair.BTCUSDT, 10000045);
+bool AreCanceledAllOrders = await order.CancelAsync(TraidingPair.BTCUSDT);
 ``` 
 
 ### 1.4. AccountEndPoint
@@ -216,6 +236,46 @@ public async Task<Account> GetAsync()
 ...
 Account account = await account.GetAsync();
 ```
+### 1.5. StreamEndPoint
+
+This endpoint has methods for working with stream FutureBinance. You can start stream, delete strean and update stream's key
+
+```csharp
+AuthClient client = new AuthClient("apikey", "secretkey");
+StreamEndPoint streamPoint = new StreamEndPoint(client); // only AuthClient
+```
+
+To get **your_listened_key** you need use method:
+
+**StartAsync**
+
+Close old connection tokens and create a new connection with token(listenKey)
+```csharp
+public Task<string> StartAsync()
+```
+
+Example
+```csharp
+AuthClient client = new AuthClient("apikey", "secretkey");
+StreamEndPoint streamPoint = new StreamEndPoint(client); // only AuthClient
+string listenKey = await streamPoint.StartAsync();
+```
+
+**DeleteAsync**
+
+Close the connection
+```csharp
+public void DeleteAsync()
+```
+
+**KeepAliveAsync**
+
+Update the connnection's token 
+```csharp
+public void KeepAliveAsync()
+```
+
+Section with full description of stream located in page's bottom
 
 ## 2. Exception
 
@@ -247,8 +307,92 @@ public Task<string> SendAsync(IEnumerable<KeyValuePair<string, string>> args, Ht
 AuthClient authClient = new AuthClient("API_key", "Secret_key", true); // Create an auth client
 AuthClient defaultClient = new AuthClient(true); // Create a default client
 
-UserRequest.Request customRequest = new UserRequest.Request(authClient);
+CustomRequest.Request customRequest = new CustomRequest.Request(authClient);
 string response = await customRequest.SendAsync(null, HttpMethod.Get, "/fapi/v1/positionSide/dual");
 
 Console.WriteLine(response); // Output in JSON
+```
+
+## Stream
+
+FutureBinance give an ability to listen events from their servers. And with a help this library, you can do it easily
+
+First, create new API Client type - **StreamClient**. It use in conustrctor 2 parameters: **listenKey** and **webSocketUrl**
+
+```csharp
+public StreamClient(string userListenKey)
+
+public StreamClient(string userListenKey, string webSocketUrl)
+```
+
+Examples:
+
+```csharp
+StreamClient client = StreamClinet("listenKey");
+StreamClient specificClient = new StreamClient("listenKey", "newWebSocketUrl");
+```
+
+Second, create Stream object. It **allows** you register new event-callbacks
+```csharp
+StreamClient client = new StreamClient("listenKey");
+Stream stream = new Stream(client);
+
+stream.ConnectAsync((error) => {
+    // You get created ClientWebSocket object
+    Console.WriteLine('whoops..something error');
+});
+
+stream.Events.Add(new MarginListener((model) => {
+    Console.WriteLine("event from marginListener");
+    Console.WriteLine(model.EventType);
+}));
+```
+
+A collection of Listeners:
+```csharp
+AccountUpdateListener
+MarginListener
+OrderTradeUpdateListener
+StreamExpired
+```
+
+There are a basic listeners. You can create your custom listeners. Your listener need implemented interface **IEvent**
+
+Important note: you have an ability to create custom listener, but they can implemented only basic event models: **StreamExpired, StreamMarginCall, OrderTradeUpdateCall, AccountUpdateCall**
+
+In this example it shows custom listener
+```csharp
+public class MyListener : IListener
+{
+    #region Var
+    public EventType Type => EventType.MARGIN_CALL;
+    
+    private Action<EventModel.StreamMarginCall> Callback { get; }
+    #endregion
+
+    #region Init
+    public MyListener(Action<EventModel.StreamMarginCall> callback)
+    {
+        Callback = callback;
+    }
+    #endregion
+    
+    #region Methods
+    public void Update(string message)
+    {
+        EventModel.StreamMarginCall parsedModel = JsonConvert.DeserializeObject<EventModel.StreamMarginCall>(message);
+        
+        // Here there is an ability to implemented somethings(check database, send request to api, change parsedModel and etc)
+        
+        UserCallback(parsedModel);
+    }
+    #endregion
+}
+```
+
+```csharp
+...
+stream.Events.Add(new MyListener((model) => {
+    Console.WriteLine(model);
+});
 ```

@@ -23,5 +23,6 @@
     <Folder Include="Models\Events\General\" />
     <Folder Include="CustomRequest\" />
     <Folder Include="Tools\Stream\" />
+    <Folder Include="Models\Margins\" />
   </ItemGroup>
 </Project>

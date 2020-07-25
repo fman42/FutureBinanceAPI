@@ -4,15 +4,15 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class StopMarket : Order, IOrder
     {
-        public Symbols Symbol { get; set; }
+        public TraidingPair Symbol { get; set; }
 
-        public SideTypes Side { get; set; }
+        public Side Side { get; set; }
 
-        public Types Type { get; } = Types.STOP_MARKET;
+        public OrderType Type { get; } = OrderType.STOP_MARKET;
 
         public WorkingType WorkingType { get; set; }
 
-        public ClosePosition ClosePosition { get; set; }
+        public ClosePositionType ClosePosition { get; set; }
 
         public decimal Quantity { get; set; }
 
@@ -20,9 +20,9 @@ namespace FutureBinanceAPI.Models.Orders
 
         public bool ReduceOnly { get; set; }
 
-        public StopMarket(Symbols symbol, SideTypes side, decimal quantity, decimal stopPrice)
+        public StopMarket(TraidingPair traidingPair, Side side, decimal quantity, decimal stopPrice)
         {
-            Symbol = symbol;
+            Symbol = traidingPair;
             Side = side;
             StopPrice = stopPrice;
             Quantity = quantity;

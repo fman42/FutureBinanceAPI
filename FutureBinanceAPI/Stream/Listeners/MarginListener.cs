@@ -8,7 +8,7 @@ namespace FutureBinanceAPI.Stream.Listeners
     public class MarginListener : BaseListener<StreamMarginCall>, IListener
     {
         #region Var
-        public EventTypes Type => EventTypes.MARGIN_CALL;
+        public EventType Type => EventType.MARGIN_CALL;
         #endregion
 
         #region Init
