@@ -43,7 +43,7 @@ namespace FutureBinanceAPI.Stream
             WebSocketReceiveResult webSocketResponse = await ClientWS.ReceiveAsync(StreamBytes.DefaultBytesArray, CancellationToken.None);
 
             if (webSocketResponse.EndOfMessage)
-                return StreamBytes.ToString();
+                return StreamBytes.BytesToString();
 
             while (StreamBytes.DefaultBytesArray.Length - webSocketResponse.Count == 0)
             {
@@ -51,7 +51,7 @@ namespace FutureBinanceAPI.Stream
                 StreamBytes.SwopArrayBytes();
             }
 
-            return StreamBytes.ToString();
+            return StreamBytes.BytesToString();
         }
         #endregion
     }

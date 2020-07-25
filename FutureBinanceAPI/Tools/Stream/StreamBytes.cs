@@ -25,7 +25,7 @@ namespace FutureBinanceAPI.Tools.Stream
             ReceivedNewMessage.CopyTo(DefaultBytesArray, DefaultBytesArray.Length - ReceivedNewMessage.Length);
         }
 
-        public static string ToString() => Encoding.UTF8.GetString(DefaultBytesArray);
+        public static string BytesToString() => Encoding.UTF8.GetString(DefaultBytesArray);
         #endregion
     }
 }
