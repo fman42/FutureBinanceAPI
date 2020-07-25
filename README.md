@@ -1,6 +1,8 @@
 ## Future Binance API
 
-This library allows to you use an API of crypto exchange **Future Binance**
+<img src="./icon.png" width="200px">
+
+This library allows to you use simply an API of crypto exchange **Future Binance**
 
 In this moment the library supports main methods of API and has a custom request
 
