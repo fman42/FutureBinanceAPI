@@ -30,7 +30,7 @@ namespace FutureBinanceAPI.Endpoints
         #region Methods
         public async Task<Order> SetAsync(Orders.IOrder order)
         {
-            HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/openOrders",
+            HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/order",
                 order.ToKeyValuePair());
             return await Client.SendRequestAsync<Order>(message);
         }

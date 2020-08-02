@@ -18,6 +18,8 @@ namespace FutureBinanceAPI.Models.Orders
 
         public decimal StopPrice { get; set; }
 
+        public decimal ActivationPrice { get; set; }
+
         public bool ReduceOnly { get; set; }
 
         public StopMarket(TraidingPair traidingPair, Side side, decimal quantity, decimal stopPrice)
