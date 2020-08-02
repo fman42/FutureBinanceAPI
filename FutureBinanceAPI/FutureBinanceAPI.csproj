@@ -26,6 +26,7 @@
     <Folder Include="CustomRequest\" />
     <Folder Include="Tools\Stream\" />
     <Folder Include="Models\Margins\" />
+    <Folder Include="Tools\Converters\" />
   </ItemGroup>
 
   <ItemGroup>

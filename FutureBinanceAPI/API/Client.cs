@@ -33,7 +33,7 @@ namespace FutureBinanceAPI.API
         public async Task<string> SendRequestAsync(HttpRequestMessage message)
         {
             HttpResponseMessage response = await HttpClient.SendAsync(message);
-            string receivedString = await response.Content.ReadAsStringAsync();
+            string receivedString = await response.Content.ReadAsStringAsync(); 
 
             if (response.IsSuccessStatusCode)
                 return receivedString;

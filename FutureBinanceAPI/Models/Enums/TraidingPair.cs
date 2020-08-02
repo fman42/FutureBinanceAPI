@@ -1,7 +1,14 @@
-﻿namespace FutureBinanceAPI.Models.Enums
+﻿using Newtonsoft.Json;
+using FutureBinanceAPI.Tools.Converters;
+
+namespace FutureBinanceAPI.Models.Enums
 {
+    [JsonConverter(typeof(TraidingPairConverter))]
     public enum TraidingPair
     {
+        Unknown,
+        BANDUSDT,
+        KAVAUSDT,
         BTCUSDT,
         ETHUSDT,
         BCHUSDT,
