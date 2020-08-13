@@ -11,7 +11,12 @@
         #endregion
 
         #region Init
-        public AuthClient(string _APIKey, string _SecretKey, bool debug = false) : base(debug)
+        /// <summary>
+        /// Create the client for default request
+        /// <para>If you want use testnet exchange then set <paramref name="useTestnet"/> in "true"</para>
+        /// <para>Else if you use main excange set <paramref name="useTestnet"/> in "false" or ignore it</para>
+        /// </summary>
+        public AuthClient(string _APIKey, string _SecretKey, bool useTestnet = false) : base(useTestnet)
         {
             APIKey = _APIKey;
             SecretKey = _SecretKey;
