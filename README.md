@@ -17,20 +17,23 @@ AuthClient has API-key and Secret-Key for HTTP-request.
 DefaultClient will use for non-auth request(**Endpoint's Market** and etc...)  
 StreamClient will use for stream events(see **4. Stream**)
 
+**Note**:
+To set parametr **"useTestnet"** in **true** for use API of Binance Futures Testnet(https://testnet.binancefuture.com). Else if you use the main exchange (https://www.binance.com/ru/futures/BTCUSDT) then set **"useTestnet"** in **false** or just ignore it
+
 In depending of type a constructor has another arguments:
 ```csharp
-AuthClient(string _APIKey, string _SecretKey, bool debug = false)
+AuthClient(string _APIKey, string _SecretKey, bool useTestnet = false)
 ...
-DefaultClient(bool debug = false)
+DefaultClient(bool useTestnet = false)
 ...
-StreamClient(string userListenKey)
+StreamClient(string userListenKey, bool useTestnet = false)
 ...
 StreamClient(string userListenKey, string webSocketUrl)
 ```
 
 Create a client:
 ```csharp
-AuthClient authClient = new AuthClient("my_api_key", "my_secret_key", true); // Create the client for an auth request
+AuthClient authClient = new AuthClient("my_api_key", "my_secret_key"); // Create the client for an auth request
 DefaultClient defaultClient = new DefaultClient(); // Create the client for no auth request
 StreamClient streamClient = new StreamClient("listener_key"); // Create the client for stream events
 ```
