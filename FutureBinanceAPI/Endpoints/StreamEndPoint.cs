@@ -1,5 +1,4 @@
 ﻿using FutureBinanceAPI.Tools.HttpBuilder;
-using FutureBinanceAPI.Models;
 using FutureBinanceAPI.API;
 using System.Threading.Tasks;
 using System.Net.Http;
@@ -12,9 +11,9 @@ namespace FutureBinanceAPI.Endpoints
         #region Var
         public string APIEndPoint { get; } = "/fapi/v1/listenKey";
 
-        private AuthClient Client { get; set; }
+        private AuthClient Client { get; }
 
-        private IHttpBuilder HttpBuilder { get; set; }
+        private IHttpBuilder HttpBuilder { get; }
         #endregion
 
         #region Init

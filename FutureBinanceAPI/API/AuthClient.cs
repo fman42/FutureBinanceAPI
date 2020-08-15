@@ -12,7 +12,7 @@
 
         #region Init
         /// <summary>
-        /// Create the client for default request
+        /// <para>Create the client for default request</para>
         /// <para>If you want use testnet exchange then set <paramref name="useTestnet"/> in "true"</para>
         /// <para>Else if you use main excange set <paramref name="useTestnet"/> in "false" or ignore it</para>
         /// </summary>

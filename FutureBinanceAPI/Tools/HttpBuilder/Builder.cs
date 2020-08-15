@@ -9,9 +9,10 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
     {
         #region Var
         protected readonly string API_BASE = "https://fapi.binance.com";
+
         protected readonly string API_BASE_TEST = "https://testnet.binancefuture.com";
     
-        private bool DebugMode { get; set; }
+        private bool DebugMode { get; }
         #endregion
 
         #region Init

@@ -26,12 +26,10 @@ namespace FutureBinanceAPI.Stream
 
         public async void ConnectAsync(Action<ClientWebSocket> onCloseConnection)
         {
-            await ClientWS.ConnectAsync(new Uri($"{Client.WSUrl}/{Client.UserListenKey}"), CancellationToken.None);
+            await ClientWS.ConnectAsync(new Uri($"{Client.WSUrl}/ws/{Client.UserListenKey}"), CancellationToken.None);
 
             while (ClientWS.State == WebSocketState.Open)
-            {
                 Events.Alert(await ReadMessageOfStreamAsync());
-            }
 
             if (ClientWS.State != WebSocketState.Open)
                 onCloseConnection(ClientWS);

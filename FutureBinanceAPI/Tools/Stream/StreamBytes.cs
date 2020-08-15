@@ -13,7 +13,11 @@ namespace FutureBinanceAPI.Tools.Stream
         #endregion
 
         #region Methods
-        public static void RewriteByteArray() => DefaultBytesArray = new byte[DefaultSizeArray];
+        public static void RewriteByteArray()
+        {
+            DefaultBytesArray = new byte[DefaultSizeArray];
+            ReceivedNewMessage = new byte[DefaultSizeArray];
+        }
 
         public static void SwopArrayBytes()
         {

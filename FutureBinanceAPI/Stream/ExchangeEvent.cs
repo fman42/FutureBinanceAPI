@@ -10,7 +10,11 @@ namespace FutureBinanceAPI.Stream
     public class ExchangeEvent : IEvent
     {
         #region  Var
-        private List<IListener> Listeners => new List<IListener>();
+        private List<IListener> Listeners { get; }
+        #endregion
+
+        #region Init
+        public ExchangeEvent() => Listeners = new List<IListener>();
         #endregion
 
         #region Methods
