@@ -6,7 +6,11 @@ namespace FutureBinanceAPI.Models
     {
         public bool Isolated { get; set; }
 
-        public float Leverage { get; set; }
+        public decimal ExecutedQty { get; set; }
+
+        public decimal OrigQty { get; set; }
+
+        public decimal Leverage { get; set; }
 
         public TraidingPair Symbol { get; set; }
 
