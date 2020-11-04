@@ -12,16 +12,16 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
 
         #region Methods
         public HttpRequestMessage MakeRequest(string url, IEnumerable<KeyValuePair<string, string>> args = null)
+            => MakeRequest(HttpMethod.Get, url, args);
+
+        public HttpRequestMessage MakeRequest(HttpMethod method, string url, IEnumerable<KeyValuePair<string, string>> args = null)
         {
             string requestUrl = GetRequestUrl(url);
             if (args is { })
                 requestUrl += CreateQueryString(args);
 
-            return new HttpRequestMessage(HttpMethod.Get, requestUrl);
+            return new HttpRequestMessage(method, requestUrl);
         }
-
-        public HttpRequestMessage MakeRequest(HttpMethod method, string url, IEnumerable<KeyValuePair<string, string>> args = null)
-            => throw new System.NotImplementedException();
         #endregion
     }
 }
