@@ -322,7 +322,7 @@ public Task<string> SendAsync(IEnumerable<KeyValuePair<string, string>> args, Ht
 
 ```csharp
 AuthClient authClient = new AuthClient("API_key", "Secret_key", true); // Create an auth client
-AuthClient defaultClient = new AuthClient(true); // Create a default client
+DefaultClient defaultClient = new DefaultClient(true); // Create a default client
 
 CustomRequest.Request customRequest = new CustomRequest.Request(authClient);
 string response = await customRequest.SendAsync(null, HttpMethod.Get, "/fapi/v1/positionSide/dual");
