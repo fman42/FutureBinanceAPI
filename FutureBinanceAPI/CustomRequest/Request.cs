@@ -27,7 +27,7 @@ namespace FutureBinanceAPI.CustomRequest
         public Task<string> SendAsync(IEnumerable<KeyValuePair<string, string>> args, HttpMethod method, string endpoint)
         {
             HttpRequestMessage message = Builder.MakeRequest(method, endpoint, args);
-            return Client.SendRequestAsync(message);
+            return Client.SendRequestAsync<string>(message);
         }
         #endregion
     }

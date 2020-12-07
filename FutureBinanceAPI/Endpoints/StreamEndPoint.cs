@@ -28,9 +28,9 @@ namespace FutureBinanceAPI.Endpoints
         public async Task<string> StartAsync()
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, APIEndPoint, null);
-            string response = await Client.SendRequestAsync(message);
+            string response = await Client.SendRequestAsync<string>(message);
 
-            return JObject.Parse(response)["listenKey"].ToString();
+            return JObject.Parse(response).Value<string>("listenKey");
         }
 
         public async void DeleteAsync() => await Client.SendRequestAsync(HttpBuilder.MakeRequest(HttpMethod.Delete, APIEndPoint, null));

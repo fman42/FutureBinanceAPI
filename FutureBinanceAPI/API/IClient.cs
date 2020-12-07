@@ -5,8 +5,6 @@ namespace FutureBinanceAPI.API
 {
     interface IClient
     {
-        Task<T> SendRequestAsync<T>(HttpRequestMessage message);
-
-        Task<string> SendRequestAsync(HttpRequestMessage message);
+        Task<T> SendRequestAsync<T>(HttpRequestMessage message) where T : class;
     }
 }

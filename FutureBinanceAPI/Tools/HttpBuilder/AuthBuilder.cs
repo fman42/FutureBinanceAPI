@@ -40,18 +40,18 @@ namespace FutureBinanceAPI.Tools.HttpBuilder
         private IEnumerable<KeyValuePair<string, string>> BuildRequest(IEnumerable<KeyValuePair<string, string>> args)
         {
             Dictionary<string, string> requestCollection = args.ToDictionary(x => x.Key, x => x.Value);
-            requestCollection = SetPrimaryFields(requestCollection);
+            requestCollection = SetMainFields(requestCollection);
             requestCollection.Add("signature", HmacSha256.Create(Client.SecretKey,
                 new FormUrlEncodedContent(requestCollection)));
 
             return requestCollection;
-        }
 
-        private Dictionary<string, string> SetPrimaryFields(Dictionary<string, string> args)
-        {
-            args.Add("recvWindow", Client.RecvWindow.ToString());
-            args.Add("timestamp", GetTimeStamp().ToString());
-            return args;
+            Dictionary<string, string> SetMainFields(Dictionary<string, string> args)
+            {
+                args.Add("recvWindow", $"{Client.RecvWindow}");
+                args.Add("timestamp", $"{GetTimeStamp()}");
+                return args;
+            }
         }
         #endregion
     }

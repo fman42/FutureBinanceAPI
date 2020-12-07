@@ -20,25 +20,17 @@ namespace FutureBinanceAPI.API
         #endregion
 
         #region Methods
-        public async Task<T> SendRequestAsync<T>(HttpRequestMessage message)
+        public async Task<T> SendRequestAsync<T>(HttpRequestMessage message) where T : class
         {
             HttpResponseMessage response = await HttpClient.SendAsync(message);
             string receivedString = await response.Content.ReadAsStringAsync();
 
             if (response.IsSuccessStatusCode)
-                return JsonConvert.DeserializeObject<T>(receivedString);
+                return typeof(T) == typeof(string) ? (T)(object)receivedString : JsonConvert.DeserializeObject<T>(receivedString);
             else throw new APIException(receivedString);
         }
 
-        public async Task<string> SendRequestAsync(HttpRequestMessage message)
-        {
-            HttpResponseMessage response = await HttpClient.SendAsync(message);
-            string receivedString = await response.Content.ReadAsStringAsync(); 
-
-            if (response.IsSuccessStatusCode)
-                return receivedString;
-            else throw new APIException(receivedString);
-        }
+        public async Task SendRequestAsync(HttpRequestMessage message) => await HttpClient.SendAsync(message);
         #endregion
     }
 }

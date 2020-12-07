@@ -9,10 +9,7 @@ namespace FutureBinanceAPI.Tools.Converters
         public override bool CanConvert(Type objectType) => false;
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            TraidingPair pair = Enum.TryParse<TraidingPair>(reader.Value.ToString(), out pair) ? pair : TraidingPair.Unknown;
-            return pair;
-        }
+            => Enum.TryParse(reader.Value.ToString(), out TraidingPair pair) ? pair : TraidingPair.Unknown;
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             => throw new NotImplementedException();
