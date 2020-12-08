@@ -9,10 +9,10 @@ using Orders = FutureBinanceAPI.Models.Orders;
 
 namespace FutureBinanceAPI.Endpoints
 {
-    public class OrderEndPoint : IEndpoint
+    public class OrderEndPoint
     {
         #region Var
-        public string APIEndPoint { get; } = "/fapi/v1";
+        public const string APIEndPoint = "/fapi/v1";
 
         private AuthClient Client { get; set; }
 

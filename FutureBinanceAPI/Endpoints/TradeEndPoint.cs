@@ -11,10 +11,10 @@ using Newtonsoft.Json.Linq;
 
 namespace FutureBinanceAPI.Endpoints
 {
-    public class TradeEndPoint : IEndpoint
+    public class TradeEndPoint
     {
         #region Var
-        public string APIEndPoint { get; } = "/fapi/v1";
+        public const string APIEndPoint = "/fapi/v1";
 
         private AuthClient Client { get; set; }
 
@@ -59,7 +59,7 @@ namespace FutureBinanceAPI.Endpoints
                 new KeyValuePair<string,string>("positionSide", positionSide.ToString()),
             });
 
-            return JObject.Parse(await Client.SendRequestAsync(message)).Value<int>("code") == 200;
+            return JObject.Parse(await Client.SendRequestAsync<string>(message)).Value<int>("code") == 200;
         }
 
         public async Task<IEnumerable<MarginChange>> GetMarginChangesAsync(TraidingPair traidingPair, int limit = 100)

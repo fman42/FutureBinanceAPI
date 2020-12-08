@@ -6,10 +6,10 @@ using System.Net.Http;
 
 namespace FutureBinanceAPI.Endpoints
 {
-    public class AccountEndPoint : IEndpoint
+    public class AccountEndPoint
     {
         #region Var
-        public string APIEndPoint { get; } = "/fapi/v1/account";
+        public const string APIEndPoint = "/fapi/v1/account";
 
         private AuthClient Client { get; set; }
 

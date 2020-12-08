@@ -8,7 +8,7 @@ using System.Net.Http;
 
 namespace FutureBinanceAPI.Endpoints
 {
-    public class TickerEndPoint : IEndpoint
+    public class TickerEndPoint
     {
         #region Var
         public string APIEndPoint { get; } = "/fapi/v1/ticker";

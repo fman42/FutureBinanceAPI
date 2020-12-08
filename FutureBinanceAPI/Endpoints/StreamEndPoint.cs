@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace FutureBinanceAPI.Endpoints
 {
-    public class StreamEndPoint : IEndpoint
+    public class StreamEndPoint
     {
         #region Var
         public string APIEndPoint { get; } = "/fapi/v1/listenKey";
