@@ -3,6 +3,7 @@
     public enum Asset
     {
         USDT,
-        BNB
+        BNB,
+        BUSD
     }
 }
