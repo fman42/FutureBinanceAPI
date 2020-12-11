@@ -1,10 +1,12 @@
-﻿using FutureBinanceAPI.API;
-using FutureBinanceAPI.Models;
-using FutureBinanceAPI.Models.Enums;
-using FutureBinanceAPI.Tools.HttpBuilder;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using FutureBinanceAPI.API;
+using FutureBinanceAPI.Models;
+using FutureBinanceAPI.Models.Enums;
+using FutureBinanceAPI.Tools.Extensions;
+using FutureBinanceAPI.Tools.HttpBuilder;
+using Newtonsoft.Json.Linq;
 using Orders = FutureBinanceAPI.Models.Orders;
 
 namespace FutureBinanceAPI.Endpoints
@@ -38,8 +40,8 @@ namespace FutureBinanceAPI.Endpoints
         public async Task<Order> GetAsync(TraidingPair traidingPair, long orderId)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Get, $"{APIEndPoint}/order", new[] {
-                new KeyValuePair<string,string>("symbol", traidingPair.ToString()),
-                new KeyValuePair<string,string>("orderId", orderId.ToString()),
+                new KeyValuePair<string,string>("symbol", $"{traidingPair}"),
+                new KeyValuePair<string,string>("orderId", $"{orderId}")
             });
 
             return await Client.SendRequestAsync<Order>(message);
@@ -48,8 +50,8 @@ namespace FutureBinanceAPI.Endpoints
         public async Task<Order> CancelAsync(TraidingPair traidingPair, long orderId)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Delete, $"{APIEndPoint}/order", new[] {
-                new KeyValuePair<string,string>("symbol", traidingPair.ToString()),
-                new KeyValuePair<string,string>("orderId", orderId.ToString()),
+                new KeyValuePair<string,string>("symbol", $"{traidingPair}"),
+                new KeyValuePair<string,string>("orderId", $"{orderId}")
             });
 
             return await Client.SendRequestAsync<Order>(message);
@@ -58,11 +60,10 @@ namespace FutureBinanceAPI.Endpoints
         public async Task<bool> CancelAsync(TraidingPair traidingPair)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Delete, $"{APIEndPoint}/allOpenOrders", new[] {
-                new KeyValuePair<string,string>("symbol", traidingPair.ToString())
+                new KeyValuePair<string,string>("symbol", $"{traidingPair}")
             });
 
-            ResponseStatus response = await Client.SendRequestAsync<ResponseStatus>(message);
-            return response.Code == 200;
+            return JObject.Parse(await Client.SendRequestAsync<string>(message)).Value<int>("Code") == 200;
         }
         #endregion
     }

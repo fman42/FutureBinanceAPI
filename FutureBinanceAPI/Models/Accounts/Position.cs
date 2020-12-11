@@ -1,6 +1,6 @@
 ﻿using FutureBinanceAPI.Models.Enums;
 
-namespace FutureBinanceAPI.Models
+namespace FutureBinanceAPI.Models.Accounts
 {
     public class Position
     {

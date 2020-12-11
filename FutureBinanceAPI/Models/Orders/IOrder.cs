@@ -1,5 +1,4 @@
 ﻿using FutureBinanceAPI.Models.Enums;
-using System.Collections.Generic;
 
 namespace FutureBinanceAPI.Models.Orders
 {
@@ -10,7 +9,5 @@ namespace FutureBinanceAPI.Models.Orders
         public Side Side { get; set; }
 
         public OrderType Type { get; }
-
-        public IEnumerable<KeyValuePair<string, string>> ToKeyValuePair();
     }
 }

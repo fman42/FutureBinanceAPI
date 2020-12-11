@@ -27,6 +27,7 @@
     <Folder Include="Tools\Stream\" />
     <Folder Include="Models\Margins\" />
     <Folder Include="Tools\Converters\" />
+    <Folder Include="Tools\Extensions\" />
   </ItemGroup>
 
   <ItemGroup>

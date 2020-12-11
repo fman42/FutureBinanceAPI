@@ -2,7 +2,7 @@
 
 namespace FutureBinanceAPI.Models.Orders
 {
-    public class TakeProfitMarket : Order, IOrder
+    public class TakeProfitMarket : IOrder
     {
         public TraidingPair Symbol { get; set; }
 

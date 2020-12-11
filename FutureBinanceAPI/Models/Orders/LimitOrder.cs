@@ -2,7 +2,7 @@
 
 namespace FutureBinanceAPI.Models.Orders
 {
-    public class LimitOrder : Order, IOrder
+    public class LimitOrder : IOrder
     {
         public TraidingPair Symbol { get; set; }
 

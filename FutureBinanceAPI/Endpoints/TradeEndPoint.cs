@@ -1,6 +1,5 @@
 ﻿using FutureBinanceAPI.Tools.HttpBuilder;
 using FutureBinanceAPI.Models.Enums;
-using FutureBinanceAPI.Models;
 using FutureBinanceAPI.Models.Margins;
 using FutureBinanceAPI.API;
 using System.Threading.Tasks;
@@ -30,33 +29,34 @@ namespace FutureBinanceAPI.Endpoints
         #endregion
 
         #region Methods
-        public async Task<Leverage> SetLeverageAsync(TraidingPair traidingPair, int value)
+        public async Task<bool> SetLeverageAsync(TraidingPair traidingPair, int value)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/leverage", new[] {
-                new KeyValuePair<string,string>("symbol", traidingPair.ToString()),
-                new KeyValuePair<string,string>("leverage", value.ToString()),
+                new KeyValuePair<string,string>("symbol", $"{traidingPair}"),
+                new KeyValuePair<string,string>("leverage", $"{value}"),
             });
-            return await Client.SendRequestAsync<Leverage>(message);
+
+            return !string.IsNullOrEmpty(await Client.SendRequestAsync<string>(message));
         }
 
         public async Task<bool> SetMarginTypeAsync(TraidingPair traidingPair, MarginType marginType)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/marginType", new[] {
-                new KeyValuePair<string,string>("symbol", traidingPair.ToString()),
-                new KeyValuePair<string,string>("marginType", marginType.ToString()),
+                new KeyValuePair<string,string>("symbol", $"{traidingPair}"),
+                new KeyValuePair<string,string>("marginType", $"{marginType}"),
             });
 
-            ResponseStatus response = await Client.SendRequestAsync<ResponseStatus>(message);
-            return response is { } && response.Code == 200 && response.Msg == "success";
+            JObject responseToJson = JObject.Parse(await Client.SendRequestAsync<string>(message));
+            return responseToJson is { } && responseToJson.Value<string>("Msg") == "success";
         }
 
         public async Task<bool> ModifiyIsolatedPositionMarge(TraidingPair traidingPair, decimal amount, int type, PositionSide positionSide = PositionSide.BOTH)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Post, $"{APIEndPoint}/positionMargin", new[] {
-                new KeyValuePair<string,string>("symbol", traidingPair.ToString()),
+                new KeyValuePair<string,string>("symbol", $"{traidingPair}"),
                 new KeyValuePair<string,string>("amount", amount.ToString(new CultureInfo("en-US"))),
-                new KeyValuePair<string,string>("type", type.ToString()),
-                new KeyValuePair<string,string>("positionSide", positionSide.ToString()),
+                new KeyValuePair<string,string>("type", $"{type}"),
+                new KeyValuePair<string,string>("positionSide", $"{positionSide}"),
             });
 
             return JObject.Parse(await Client.SendRequestAsync<string>(message)).Value<int>("code") == 200;
@@ -68,7 +68,7 @@ namespace FutureBinanceAPI.Endpoints
         public async Task<IEnumerable<MarginChange>> GetMarginChangesAsync(TraidingPair traidingPair, int type, int limit = 100)
         {
             Dictionary<string, string> httpParams = MakeGeneralParameters(traidingPair, limit);
-            httpParams.Add("type", type.ToString());
+            httpParams.Add("type", $"{type}");
 
             return await SendRequestForMarginChanges(httpParams);
         }
@@ -76,9 +76,9 @@ namespace FutureBinanceAPI.Endpoints
         public async Task<IEnumerable<MarginChange>> GetMarginChangesAsync(TraidingPair traidingPair, int type, long startTime, long endTime, int limit = 100)
         {
             Dictionary<string, string> httpParams = MakeGeneralParameters(traidingPair, limit);
-            httpParams.Add("type", type.ToString());
-            httpParams.Add("startTime", startTime.ToString());
-            httpParams.Add("endTime", endTime.ToString());
+            httpParams.Add("type", $"{type}");
+            httpParams.Add("startTime", $"{startTime}");
+            httpParams.Add("endTime", $"{endTime}");
 
             return await SendRequestForMarginChanges(httpParams);
         }
@@ -93,8 +93,8 @@ namespace FutureBinanceAPI.Endpoints
         {
             return new Dictionary<string, string>()
             {
-                { "symbol", traidingPair.ToString() },
-                { "limit", limit.ToString() }
+                { "symbol", $"{traidingPair}" },
+                { "limit", $"{limit}" }
             };
         }
         #endregion

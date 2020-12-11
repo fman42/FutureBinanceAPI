@@ -1,9 +1,8 @@
 ﻿using FutureBinanceAPI.Models.Enums;
-using System.Collections.Generic;
 
 namespace FutureBinanceAPI.Models.Orders
 {
-    public class MarketOrder : Order, IOrder
+    public class MarketOrder : IOrder
     {
         public TraidingPair Symbol { get; set; }
 

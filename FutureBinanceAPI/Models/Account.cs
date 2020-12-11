@@ -6,6 +6,6 @@ namespace FutureBinanceAPI.Models
     {
         public List<Accounts.Asset> Assets { get; set; }
 
-        public List<Position> Positions { get; set; }
+        public List<Accounts.Position> Positions { get; set; }
     }
 }
