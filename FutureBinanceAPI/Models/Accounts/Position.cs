@@ -28,7 +28,7 @@ namespace FutureBinanceAPI.Models.Accounts
 
         public decimal PositionAmt { get; set; }
 
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public PositionSide PositionSide { get; set; }
     }

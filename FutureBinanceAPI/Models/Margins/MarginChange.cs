@@ -8,7 +8,7 @@ namespace FutureBinanceAPI.Models.Margins
 
         public Asset Asset { get; set; }
 
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public long Time { get; set; }
 

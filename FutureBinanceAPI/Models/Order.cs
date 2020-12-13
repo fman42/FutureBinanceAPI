@@ -42,7 +42,7 @@ namespace FutureBinanceAPI.Models
 
         public OrderStatus Status { get; set; }
 
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public OrderType Type { get; set; }
 

@@ -4,7 +4,7 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class MarketOrder : IOrder
     {
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public Side Side { get; set; }
 
@@ -16,9 +16,9 @@ namespace FutureBinanceAPI.Models.Orders
 
         public bool ReduceOnly { get; set; } = false;
 
-        public MarketOrder(TraidingPair traidingPair, Side side, decimal quantity)
+        public MarketOrder(TradingPair TradingPair, Side side, decimal quantity)
         {
-            Symbol = traidingPair;
+            Symbol = TradingPair;
             Side = side;
             Quantity = quantity;
         }

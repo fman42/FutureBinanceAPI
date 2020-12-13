@@ -6,7 +6,7 @@ namespace FutureBinanceAPI.Models.Events.General
     public class Order
     {
         [JsonProperty("s")]
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         [JsonProperty("c")]
         public string ClientId { get; set; }

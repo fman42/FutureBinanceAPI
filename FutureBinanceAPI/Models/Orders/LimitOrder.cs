@@ -4,7 +4,7 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class LimitOrder : IOrder
     {
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public Side Side { get; set; }
 
@@ -20,9 +20,9 @@ namespace FutureBinanceAPI.Models.Orders
 
         public TimeInForceType TimeInForce { get; set; }
 
-        public LimitOrder(TraidingPair traidingPair, Side side, decimal quantity, decimal price, TimeInForceType timeInForce)
+        public LimitOrder(TradingPair TradingPair, Side side, decimal quantity, decimal price, TimeInForceType timeInForce)
         {
-            Symbol = traidingPair;
+            Symbol = TradingPair;
             Side = side;
             Quantity = quantity;
             Price = price;

@@ -4,7 +4,7 @@ namespace FutureBinanceAPI.Models.Events.General
 {
     public class Position
     {
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public Side Side { get; set; }
 

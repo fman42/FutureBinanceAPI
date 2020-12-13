@@ -4,7 +4,7 @@ namespace FutureBinanceAPI.Models
 {
     public class PriceTicker
     {
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public decimal Price { get; set; }
 

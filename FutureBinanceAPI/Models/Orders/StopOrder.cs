@@ -4,7 +4,7 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class StopOrder : IOrder
     {
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public Side Side { get; set; }
 
@@ -20,9 +20,9 @@ namespace FutureBinanceAPI.Models.Orders
 
         public bool ReduceOnly { get; set; }
 
-        public StopOrder(TraidingPair traidingPair, Side side, decimal quantity, decimal price, decimal stopPrice)
+        public StopOrder(TradingPair TradingPair, Side side, decimal quantity, decimal price, decimal stopPrice)
         {
-            Symbol = traidingPair;
+            Symbol = TradingPair;
             Side = side;
             Quantity = quantity;
             Price = price;

@@ -4,7 +4,7 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class TakeProfitMarket : IOrder
     {
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public Side Side { get; set; }
 
@@ -20,9 +20,9 @@ namespace FutureBinanceAPI.Models.Orders
 
         public bool ReduceOnly { get; set; }
 
-        public TakeProfitMarket(TraidingPair traidingPair, Side side, decimal quantity, decimal stopPrice)
+        public TakeProfitMarket(TradingPair TradingPair, Side side, decimal quantity, decimal stopPrice)
         {
-            Symbol = traidingPair;
+            Symbol = TradingPair;
             Side = side;
             StopPrice = stopPrice;
             Quantity = quantity;

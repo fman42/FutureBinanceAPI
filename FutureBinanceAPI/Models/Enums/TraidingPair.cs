@@ -3,8 +3,8 @@ using FutureBinanceAPI.Tools.Converters;
 
 namespace FutureBinanceAPI.Models.Enums
 {
-    [JsonConverter(typeof(TraidingPairConverter))]
-    public enum TraidingPair
+    [JsonConverter(typeof(TradingPairConverter))]
+    public enum TradingPair
     {
         Unknown,
         BANDUSDT,

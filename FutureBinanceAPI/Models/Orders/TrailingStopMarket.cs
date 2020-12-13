@@ -4,7 +4,7 @@ namespace FutureBinanceAPI.Models.Orders
 {
     public class TrailingStopMarket : IOrder
     {
-        public TraidingPair Symbol { get; set; }
+        public TradingPair Symbol { get; set; }
 
         public Side Side { get; set; }
 
@@ -18,9 +18,9 @@ namespace FutureBinanceAPI.Models.Orders
 
         public bool ReduceOnly { get; set; }
 
-        public TrailingStopMarket(TraidingPair traidingPair, Side side, decimal quantity, decimal callbackRate)
+        public TrailingStopMarket(TradingPair TradingPair, Side side, decimal quantity, decimal callbackRate)
         {
-            Symbol = traidingPair;
+            Symbol = TradingPair;
             Side = side;
             CallbackRate = callbackRate;
             Quantity = quantity;

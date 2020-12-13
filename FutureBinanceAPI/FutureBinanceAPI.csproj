@@ -28,6 +28,7 @@
     <Folder Include="Models\Margins\" />
     <Folder Include="Tools\Converters\" />
     <Folder Include="Tools\Extensions\" />
+    <Folder Include="Models\Market\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -37,30 +37,30 @@ namespace FutureBinanceAPI.Endpoints
             return await Client.SendRequestAsync<Order>(message);
         }
 
-        public async Task<Order> GetAsync(TraidingPair traidingPair, long orderId)
+        public async Task<Order> GetAsync(TradingPair tradingPair, long orderId)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Get, $"{APIEndPoint}/order", new[] {
-                new KeyValuePair<string,string>("symbol", $"{traidingPair}"),
+                new KeyValuePair<string,string>("symbol", $"{tradingPair}"),
                 new KeyValuePair<string,string>("orderId", $"{orderId}")
             });
 
             return await Client.SendRequestAsync<Order>(message);
         }
 
-        public async Task<Order> CancelAsync(TraidingPair traidingPair, long orderId)
+        public async Task<Order> CancelAsync(TradingPair tradingPair, long orderId)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Delete, $"{APIEndPoint}/order", new[] {
-                new KeyValuePair<string,string>("symbol", $"{traidingPair}"),
+                new KeyValuePair<string,string>("symbol", $"{tradingPair}"),
                 new KeyValuePair<string,string>("orderId", $"{orderId}")
             });
 
             return await Client.SendRequestAsync<Order>(message);
         }
 
-        public async Task<bool> CancelAsync(TraidingPair traidingPair)
+        public async Task<bool> CancelAsync(TradingPair tradingPair)
         {
             HttpRequestMessage message = HttpBuilder.MakeRequest(HttpMethod.Delete, $"{APIEndPoint}/allOpenOrders", new[] {
-                new KeyValuePair<string,string>("symbol", $"{traidingPair}")
+                new KeyValuePair<string,string>("symbol", $"{tradingPair}")
             });
 
             return JObject.Parse(await Client.SendRequestAsync<string>(message)).Value<int>("Code") == 200;
