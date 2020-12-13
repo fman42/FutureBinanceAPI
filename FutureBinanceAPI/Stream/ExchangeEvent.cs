@@ -33,11 +33,12 @@ namespace FutureBinanceAPI.Stream
 
         public void Alert(string message)
         {
-            EventType type = (EventType) Enum.Parse(typeof(EventType), 
-                JObject.Parse(message)["e"].ToString());
+            if (Enum.TryParse(JObject.Parse(message)["e"].ToObject<string>(), true, out EventType type))
+            {
+                foreach(IListener listener in Listeners.Where(x => x.Type == type))
+                    listener.Update(message);
+            }
 
-            foreach (IListener listener in Listeners.Where(x => x.Type == type))
-                listener.Update(message);
         }
         #endregion
     }

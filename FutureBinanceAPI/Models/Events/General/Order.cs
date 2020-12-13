@@ -32,6 +32,9 @@ namespace FutureBinanceAPI.Models.Events.General
         [JsonProperty("x")]
         public OrderStatus ExecutedOrderStatus { get; set; }
 
+        [JsonProperty("x")]
+        public OrderStatus ExecuteType { get; set; }
+
         [JsonProperty("X")]
         public OrderStatus OrderStatus { get; set; }
 
@@ -40,6 +43,51 @@ namespace FutureBinanceAPI.Models.Events.General
 
         [JsonProperty("wt")]
         public WorkingType WorkingType { get; set; }
+
+        [JsonProperty("ps")]
+        public PositionSide PositionSide { get; set; }
+
+        [JsonProperty("l")]
+        public decimal LastFilledQuantity { get; set; }
+
+        [JsonProperty("z")]
+        public decimal FilledQuantity { get; set; }
+
+        [JsonProperty("L")]
+        public decimal LastFilledPrice { get; set; }
+
+        [JsonProperty("cp")]
+        public bool CloseAll { get; set; }
+
+        [JsonProperty("N")]
+        public Asset ComissionAsset { get; set; }
+
+        [JsonProperty("n")]
+        public decimal Comission { get; set; }
+
+        [JsonProperty("T")]
+        public long TradeTime { get; set; }
+
+        [JsonProperty("t")]
+        public long TradeId { get; set; }
+
+        [JsonProperty("b")]
+        public decimal BidsNotional { get; set; }
+
+        [JsonProperty("a")]
+        public decimal AskNotional { get; set; }
+
+        [JsonProperty("m")]
+        public bool IsTradeMakerSide { get; set; }
+
+        [JsonProperty("R")]
+        public bool IsReduce { get; set; }
+
+        [JsonProperty("AP")]
+        public decimal ActivationPrice { get; set; }
+
+        [JsonProperty("cr")]
+        public decimal CallbackRate { get; set; }
 
         [JsonProperty("rp")]
         public decimal RealizedProfit { get; set; }

@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace FutureBinanceAPI.Models
+﻿namespace FutureBinanceAPI.Models
 {
     public class Account
     {
-        public List<Accounts.Asset> Assets { get; set; }
+        public Accounts.Asset[] Assets { get; set; }
 
-        public List<Accounts.Position> Positions { get; set; }
+        public Accounts.Position[] Positions { get; set; }
     }
 }

@@ -10,9 +10,9 @@ namespace FutureBinanceAPI.Models.Events.General
         public EventReasonType EventReason { get; set; }
 
         [JsonProperty("B")]
-        public List<AccountBalance> Balances { get; set; }
+        public AccountBalance[] Balances { get; set; }
 
         [JsonProperty("P")]
-        public List<Position> Positions { get; set; }
+        public Position[] Positions { get; set; }
     }
 }
