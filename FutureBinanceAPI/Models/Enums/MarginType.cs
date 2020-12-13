@@ -3,6 +3,7 @@
     public enum MarginType
     {
         ISOLATED,
-        CROSSED
+        CROSSED,
+        CROSS
     }
 }
