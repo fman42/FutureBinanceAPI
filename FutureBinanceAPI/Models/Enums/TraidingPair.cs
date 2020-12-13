@@ -160,6 +160,8 @@ namespace FutureBinanceAPI.Models.Enums
         SCUUSDT,
         SNXUSDT,
         MKRUSDT,
-        DAIUSDT
+        DAIUSDT,
+        SUSHIUSDT,
+        EGLDUSDT
     }
 }
