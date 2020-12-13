@@ -1,5 +1,4 @@
 ﻿using FutureBinanceAPI.Models.Enums;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace FutureBinanceAPI.Models.Events.General

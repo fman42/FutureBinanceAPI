@@ -32,9 +32,6 @@ namespace FutureBinanceAPI.Models.Events.General
         [JsonProperty("x")]
         public OrderStatus ExecutedOrderStatus { get; set; }
 
-        [JsonProperty("x")]
-        public OrderStatus ExecuteType { get; set; }
-
         [JsonProperty("X")]
         public OrderStatus OrderStatus { get; set; }
 
