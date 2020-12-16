@@ -6,17 +6,17 @@ namespace FutureBinanceAPI.Models
     {
         public string ClientOrderId { get; set; }
 
-        public long CumQty { get; set; }
+        public decimal CumQty { get; set; }
 
-        public long CumQuote { get; set; }
+        public decimal CumQuote { get; set; }
 
-        public long ExecutedQty { get; set; }
+        public decimal ExecutedQty { get; set; }
 
         public long OrderId { get; set; }
 
         public long UpdateTime { get; set; }
 
-        public int OrigQty { get; set; }
+        public decimal OrigQty { get; set; }
 
         public decimal AvgPrice { get; set; }
 
@@ -38,7 +38,7 @@ namespace FutureBinanceAPI.Models
 
         public Side Side { get; set; }
 
-        public Side PositionSide { get; set; }
+        public PositionSide PositionSide { get; set; }
 
         public OrderStatus Status { get; set; }
 
