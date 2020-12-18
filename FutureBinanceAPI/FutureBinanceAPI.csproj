@@ -9,10 +9,10 @@
     <Description>A simple library for working with Future Binance API supporting all types of orders, endpoints for market, order and account</Description>
     <RepositoryUrl>https://github.com/fman42/FutureBinanceAPI</RepositoryUrl>
     <PackageTags>binance, futurebinanceapi, futurebinance, api, future binance api, binance api</PackageTags>
-    <AssemblyVersion>2.1.1.0</AssemblyVersion>
-    <FileVersion>2.1.1.0</FileVersion>
-    <PackageReleaseNotes>Implemented stream events. Added new methods for TradeEndPoint. Change traiding pairs</PackageReleaseNotes>
-    <Version>2.1.1</Version>
+    <AssemblyVersion>2.2.0.0</AssemblyVersion>
+    <FileVersion>2.2.0.0</FileVersion>
+    <PackageReleaseNotes>New trading pairs added. Global rename of types in library. Fix some bugs in Stream and DefaultClient. Endpoints updated and added new endpoint - MarketEndPoint</PackageReleaseNotes>
+    <Version>2.2.0.0</Version>
     <PackageIcon>icon.png</PackageIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
