@@ -7,6 +7,9 @@ namespace FutureBinanceAPI.Models.Accounts
         [JsonProperty("asset")]
         public Enums.Asset AssetName { get; set; }
 
+        [JsonProperty("asset")]
+        public string AssetNameToString { get; set; }
+
         public decimal WalletBalance { get; set; }
 
         public decimal UnrealizedProfit { get; set; }
