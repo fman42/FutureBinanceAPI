@@ -13,7 +13,7 @@ namespace FutureBinanceAPITest
         [SetUp]
         public void Setup()
         {
-            AuthClient client = new AuthClient("2d5c604081109f4351da2500ec9cce0981664084a07e3e61bc7b5138b9a9086a", "a6e00519557fa36a0e14f90913286f925f12165a7a607eb757f446889d2e0adc", true)
+            AuthClient client = new AuthClient("", "", true)
             {
                 RecvWindow = 60000
             };
